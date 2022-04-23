@@ -52,7 +52,7 @@ We assume that the model and observations uncertainties have mean zero. Further,
 
 We also define the error covariance matrices 
 ```math
-\begin{alined}
+\begin{aligned}
     Q_k &:= \E[w_kw_k^T] \\ 
     R_k &:= \E[v_kv_k^T]
 \end{aligned}
