@@ -47,3 +47,52 @@ We can now use this error vector to form the forecast error covariance matrix
         &= J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}^a) + Q_{k-1}
 \end{aligned}
 ```
+
+## Deriving Data Assimilation Step
+At time index ``k`` we have ``x_k^f``, ``P_k^f``, ``z_k``, and ``R_k``. We will now use these to derive the optimal analysis ``x_k^a``. 
+
+Let's assume that the result is of the form
+```math
+x_k^a = a + K_kz_k \;\; \in \R^n
+```
+with ``a\in\R^n`` and ``K_k\in\R^{m\times n}``. We desire that ``\E[x_k - x_k^a] = 0``. Thus, 
+```math
+\begin{aligned}
+    0 &= \E[x_k - x_k^a] \\ 
+    &= \E[(x_k^f + e_k^f) - (a+K_k z_k)] \\ 
+    &= \E[(x_k^f + e_k^f) - (a+K_k h(x_k)  +K_kv_k)] \\ 
+    &= \E_{x_k}[x_k^f] + \E_{x_k}[e_k^f] - \E_{x_k}[a] - K_k\E_{x_k}[h(x_k)] - K_k\E_{x_k}[v_k] \\ 
+    &= x_k^f + 0 - a - K_k\E_{x_k}[h(x_k)]  - 0 \\ 
+    &= x_k^f - a - K_k\E[h(x_k)] \\ 
+    Rightarrow a &= x_k^f - K_k\E[h(x_k)]
+\end{aligned}
+```
+We now substitute to obtain
+
+```math
+x_k^a - x_k^f - K_k\E[h(x_k)] + K_kz_k
+```
+Since ``h`` is smooth enough, we may expand it about ``x_k^f`` to find that 
+```math
+h(x_k) \approx h(x_k^f) + J_h(x_k^f)(x_k-x_k^f)
+```
+where 
+```math
+J_h := \left[ \dfrac{\partial h_i}{\partial x_j} \right]
+```
+This leads to the approximation 
+```math
+\begin{aligned}
+    \E[h(x_k)] &\approx \E[h(x_k^f) + J_h(x_k^f)e_k^f] \\ 
+        &= \E[h(x_k^f)] + J_h\E[e_k^f] \\ 
+        &= \E[h(x_k^f)] = h(x_k^f)
+\end{aligned}
+```
+The analysis then becomes 
+```math
+    x_k^a &= x_k^f - K_k\E[h(x_k)] + K_k z_k \\ 
+        &\approx x_k^f - K_kh(x_k^f) + K_kz_k \\ 
+        &= x_k^f + K_k(z_k - h(x_k^f))
+```
+
+## Determining the Filter Matrix ``K_k``
