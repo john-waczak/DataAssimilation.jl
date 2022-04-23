@@ -99,7 +99,7 @@ The analysis then becomes
 
 
 ## Determining the Filter Matrix ``K_k``
-To determien the ``K_k`` that will give us the optimal `x_k^a`, we will first derive the analysis error covariance matrix and then optimize its trace (i.e. the sum of squared errors) with respect to `K_k`. Following the same procedure as before, we begin by infestigating the error `e_k=x_k-x_k^a`.
+To determine the ``K_k`` that will give us the optimal ``x_k^a``, we will first derive the analysis error covariance matrix and then optimize its trace (i.e. the sum of squared errors) with respect to ``K_k``. Following the same procedure as before, we begin by infestigating the error ``e_k=x_k-x_k^a``.
 ```math
 \begin{aligned}
     e_k &= x_k - x_k^a \\ 
@@ -109,5 +109,13 @@ To determien the ``K_k`` that will give us the optimal `x_k^a`, we will first de
     &= J_f(x_{k-1}^a) e_{k-1} - K_k J_h(x_k^f)J_f(x_{k-1}^a)e_{k-1} + w_{k-1} - K_kJ_h(x_k^f) w_{k-1} - K_kv_k \\ 
     &= \left(I-K_kJ_h(x_k^f) \right)J_f(x_{k-1}^a)e_{k-1}  + \left(I - K_kJ_h(x_k^f)\right)w_{k-1} - K_kv_k
 \end{aligned}
-
+```
+We now form the covariance matrix
+```math
+\begin{aligned}
+    P_k &:= \E[e_ke_k^T] \\ 
+    &= \left( I - K_k J_h(x_k^f)\right)J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}^a)\left( I - K_k J_h(x_k^f)\right)^T + \left( I - K_k J_h(x_k^f)\right)Q_{k-1}\left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
+    &= \left( I - K_k J_h(x_k^f)\right)\left[ J_f(x_{k-1}^a)P_{k-1} J_f^T(x_{k-1}^a) + Q_{k-1}  \right]\left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
+    &= \left( I - K_k J_h(x_k^f)\right)P_k^f \left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T
+\end{aligned}
 ```
