@@ -27,6 +27,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "Data Assimilation" => [
+            "Data Assimilation Oveview" => "dataAssimilation/dataassim.md",
             "Extended Kalman Filter" => "dataAssimilation/ekf.md",
         ],
         "Function docs" => "fdocs.md",
