@@ -21,8 +21,8 @@ where
     & v_k \in \R^m &\text{observation error}\\ 
     & f:\R^n \to \R^n &\text{Model function (aka forecast function)} \\ 
     & h:\R^n \to \R^m &\text{Observation function} \\ 
-    & x_k^f := f(x_k^f) \in \R^n &\text{model output; forecast vector}\\ 
-    & x_k^a \in \R^n &\text{the analysis vector; our best estimate}
+    & x_k^a \in \R^n &\text{the analysis vector; our best estimate} \\ 
+    & x_k^f := f(x_k^a) \in \R^n &\text{model output; forecast vector}\\ 
 \end{aligned}
 ```
 
