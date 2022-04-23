@@ -29,3 +29,21 @@ where
 ```math
 J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\right] 
 ```
+
+Therefore we can acheive the approximation 
+```math
+\begin{aligned}
+    e_k^f &\approx f(x_{k-1}^a) + J_f(x_{k-1}^a)e_{k-1} + w_{k-1} - f(x_{k-1}^a) \\ 
+        &= J_f(x_{k-1}^a)e_{k-1} + w_{k-1}
+\end{aligned}
+```
+We can now use this error vector to form the forecast error covariance matrix
+```math
+\begin{aligned}
+    P_k^f &:= \E[e_k^f(e_k^f)^T] \\ 
+        &\approx \E[(J_f e_{k-1} + w_{k-1})(J_f e_{k-1} + w_{k-1})^T] \\ 
+        &\approx \E[(J_f e_{k-1} + w_{k-1})(e_{k-1}^T J_f^T  + w_{k-1}^T)] \\ 
+        &\approx J_f\E[e_{k-1}e_{k-1}^T]J_f^T + J_f\E[e_{k-1}w_{k-1}^T] + \E[w_{k-1}e_{k-1}^T]J_f^T + \E[w_{k-1}w_{k-1}^T] \\ 
+        &= J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}^a) + Q_{k-1}
+\end{aligned}
+```
