@@ -30,10 +30,6 @@ If our functions ``f`` and ``h`` are *smooth enough* (in this case, ``C^1``), we
 where 
 ```math
 \begin{equation}
-    J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\right] = \begin{bmatrix}
-        \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\ 
-        \vdots & \ddots & & \\ 
-        \frac{\partial f_n}{\partial x_1} & \cdots & \frac{\partail f_n}{\partial x_n}
-    \end{bmatrix}
+    J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\right] 
 \end{equation}
 ```
