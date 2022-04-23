@@ -64,7 +64,7 @@ with ``a\in\R^n`` and ``K_k\in\R^{m\times n}``. We desire that ``\E[x_k - x_k^a]
     &= \E_{x_k}[x_k^f] + \E_{x_k}[e_k^f] - \E_{x_k}[a] - K_k\E_{x_k}[h(x_k)] - K_k\E_{x_k}[v_k] \\ 
     &= x_k^f + 0 - a - K_k\E_{x_k}[h(x_k)]  - 0 \\ 
     &= x_k^f - a - K_k\E[h(x_k)] \\ 
-    Rightarrow a &= x_k^f - K_k\E[h(x_k)]
+    \Rightarrow a &= x_k^f - K_k\E[h(x_k)]
 \end{aligned}
 ```
 We now substitute to obtain
