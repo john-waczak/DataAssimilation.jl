@@ -146,7 +146,7 @@ Lastly, we substitute this result back into ``P_k`` to derive a simpler expressi
     &= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left( I - K_kJ_h(x_k^f) \right)P_k^f\left( K_kJ_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
     &= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left[ P_k^fJ_h^T(x_k^f) - K_k J_h(x_k^f)P_k^fJ_h^T(x_k^f) - K_kR_k\right]K_k^T \\ 
     &= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left[ P_k^fJ_h^T(x_k^f) - K_k \left( J_h(x_k^f)P_k^fJ_h^T(x_k^f) - R_k\right) \right]K_k^T \\ 
-    &= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left[P_k^fJ_h^T(x_k^f) - P_k^fJ_h^T(x_k^f)\rigth]K_k^T \\ 
+    &= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left[P_k^fJ_h^T(x_k^f) - P_k^fJ_h^T(x_k^f)\right]K_k^T \\ 
     P_k &= \left(I-K_kJ_h(x_k^f)\right)P_k^f  \\ 
 \end{aligned}
 ```
