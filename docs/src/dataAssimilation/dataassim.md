@@ -60,3 +60,5 @@ which we will use in our consideration of the final error of our analysis.
 
 ## Goal 
 The goal of data assimilation is to optimally combine our model forecast ``x_k^f`` with our observations ``z_k`` to acheive an analysis ``x_k^a`` which minimizes the error ``e_k = x_k - x_k^a`` between the true value ``x_k`` and our prediction ``x_k^a``. 
+
+In the next section we will examine a popular approach called the **Extended Kalman Filter**.
