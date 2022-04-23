@@ -90,9 +90,24 @@ This leads to the approximation
 ```
 The analysis then becomes 
 ```math
+\begin{aligned}
     x_k^a &= x_k^f - K_k\E[h(x_k)] + K_k z_k \\ 
         &\approx x_k^f - K_kh(x_k^f) + K_kz_k \\ 
         &= x_k^f + K_k(z_k - h(x_k^f))
+\end{aligned}
 ```
 
+
 ## Determining the Filter Matrix ``K_k``
+To determien the ``K_k`` that will give us the optimal `x_k^a`, we will first derive the analysis error covariance matrix and then optimize its trace (i.e. the sum of squared errors) with respect to `K_k`. Following the same procedure as before, we begin by infestigating the error `e_k=x_k-x_k^a`.
+```math
+\begin{aligned}
+    e_k &= x_k - x_k^a \\ 
+    &= f(x_{k-1}) + w_{k-1} - x_k^f - K_k(z_k-h(x_k^f)) \\ 
+    &\approx f(x_{k-1}) + w_{k-1} - f(x_{k-1}^a) - K_k(h(x_k) - h(x_k^f) + v_k) \\ 
+    &\approx J_f(x_{k-1}^a)e_{k-1} + w_{k-1} - K_kJ_h(x_k^f)(J_f(x_{k-1}^a)e_{k-1} + w_{k-1}) - K_kv_k \\ 
+    &= J_f(x_{k-1}^a) e_{k-1} - K_k J_h(x_k^f)J_f(x_{k-1}^a)e_{k-1} + w_{k-1} - K_kJ_h(x_k^f) w_{k-1} - K_kv_k \\ 
+    &= \left(I-K_kJ_h(x_k^f) \right)J_f(x_{k-1}^a)e_{k-1}  + \left(I - K_kJ_h(x_k^f)\right)w_{k-1} - K_kv_k
+\end{aligned}
+
+```
