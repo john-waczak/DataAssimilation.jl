@@ -10,7 +10,6 @@ Documentation for [DataAssimilation](https://github.com/john-waczak/DataAssimila
 THIS IS A TEST
 
 
-<!-- Auto-magically generated TOC with links -->
 ```@contents
 Pages = [
     "index.md",
@@ -21,6 +20,3 @@ Depth = 1
 ```
 
 
-
-<!-- ```@index -->
-<!-- ``` -->
