@@ -7,16 +7,13 @@ CurrentModule = DataAssimilation
 Documentation for [DataAssimilation](https://github.com/john-waczak/DataAssimilation.jl).
 
 
-THIS IS A TEST
-
-
 ```@contents
 Pages = [
     "index.md",
-    "ekf.md",
+    "dataAssimilation/"
     "fdocs.md",
 ]
-Depth = 1
+Depth = 2
 ```
 
 
