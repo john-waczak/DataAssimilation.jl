@@ -7,17 +7,19 @@ The proper application of scientific models to make real-world predictions requi
 ## Problem Framing
 Data Assimilation can be easily understood in terms of discrete dynamical systems that involve both a model function ``f(\cdot)`` as well as observations ``z``. 
 ```math
-\begin{align}
+\begin{aligned}
     x_k &= f(x_{k-1}) + w_{k-1} \\ 
     z_k &= h(x_k) + v_k
-\end{align}
+\end{aligned}
 ```
 where 
 ```math
- & x_k\in \R^n & \text{ the state vector} \\ 
- & w_k \in \R^n & \text{ model uncertainty} \\ 
- & z_k \in \R^m & \text{ observation vector} \\ 
- & v_k \in \R^m & \text{ observation uncertainty}\\ 
- & f:\R^n \to \R^n & \text{ Model function (aka forecast function)} \\ 
- & h:\R^n \to \R^m & \text{ Observation function}
+\begin{aligned}
+    & x_k\in \R^n & \text{ the state vector} \\ 
+    & w_k \in \R^n & \text{ model uncertainty} \\ 
+    & z_k \in \R^m & \text{ observation vector} \\ 
+    & v_k \in \R^m & \text{ observation uncertainty}\\ 
+    & f:\R^n \to \R^n & \text{ Model function (aka forecast function)} \\ 
+    & h:\R^n \to \R^m & \text{ Observation function}
+\end{aligned}
 ```
