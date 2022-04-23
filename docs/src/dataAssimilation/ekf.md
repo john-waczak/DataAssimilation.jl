@@ -6,9 +6,9 @@ test
 
 
 ```math
-\begin{align}
+\begin{aligned}
     & \cov \\ 
     & \R \\ 
     & \E 
-\end{align}
+\end{aligned}
 ```
