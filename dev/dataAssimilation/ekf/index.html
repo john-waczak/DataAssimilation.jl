@@ -44,11 +44,11 @@
     &amp;= \left( I - K_k J_h(x_k^f)\right)\left[ J_f(x_{k-1}^a)P_{k-1} J_f^T(x_{k-1}^a) + Q_{k-1}  \right]\left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
     &amp;= \left( I - K_k J_h(x_k^f)\right)P_k^f \left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T
 \end{aligned}\]</p><p>We now seek to minimize <span>$\text{tr}(P_k)$</span> with respect to <span>$K_k$</span>. The following identities will be helpful: </p><p class="math-container">\[\begin{aligned}
-    \mathop{\nabla}^{}_{A}\text{tr}(AB) &amp;= B^T \\ 
-    \mathop{\nabla}^{}_{A}\text{tr}(BA) &amp;= B \\ 
-    \mathop{\nabla}^{}_{A}\text{tr}(ABA) &amp;= AB^T + AB  \\ 
+    \mathop{\nabla}_{A}\text{tr}(AB) &amp;= B^T \\ 
+    \mathop{\nabla}_{A}\text{tr}(BA) &amp;= B \\ 
+    \mathop{\nabla}_{A}\text{tr}(ABA) &amp;= AB^T + AB  \\ 
 \end{aligned}\]</p><p>From these, we obtain </p><p class="math-container">\[\begin{aligned}
-    0 &amp;= \mathop{\nabla}^{}_{K_k}\text{tr}(P_k) \\ 
+    0 &amp;= \mathop{\nabla}_{K_k}\text{tr}(P_k) \\ 
         &amp;= -\left(J_h(x_k^f) P_k^f \right)^T - P_k^f\left( J_h(x_k^f) \right)^T + K_k\left( \left\{ J_h(x_k^f)P_k^f J_h^T(x_k^f)\right\}^T  + J_h(x_k^f P_k^f J_h^T(x_k^f))\right) \\ 
         &amp;\;\;+ K_k(R_k^T + R_k) \\ 
         &amp;= -2P_k^f J_h^T(x_k^f) + 2K_k\left[ J_h(x_k^f) P_k^f J_h^T(x_k^f) + R_k \right] \\ 
@@ -60,4 +60,15 @@
     &amp;= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left[ P_k^fJ_h^T(x_k^f) - K_k \left( J_h(x_k^f)P_k^fJ_h^T(x_k^f) - R_k\right) \right]K_k^T \\ 
     &amp;= \left(I-K_kJ_h(x_k^f)\right)P_k^f - \left[P_k^fJ_h^T(x_k^f) - P_k^fJ_h^T(x_k^f)\right]K_k^T \\ 
     P_k &amp;= \left(I-K_kJ_h(x_k^f)\right)P_k^f  \\ 
-\end{aligned}\]</p><h2 id="Summary"><a class="docs-heading-anchor" href="#Summary">Summary</a><a id="Summary-1"></a><a class="docs-heading-anchor-permalink" href="#Summary" title="Permalink"></a></h2></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../dataassim/">« Data Assimilation Oveview</a><a class="docs-footer-nextpage" href="../../fdocs/">Function docs »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Saturday 23 April 2022 21:51">Saturday 23 April 2022</span>. Using Julia version 1.7.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+\end{aligned}\]</p><h2 id="Summary"><a class="docs-heading-anchor" href="#Summary">Summary</a><a id="Summary-1"></a><a class="docs-heading-anchor-permalink" href="#Summary" title="Permalink"></a></h2><p>Let&#39;s summarize the whole process:  We have a dynamical system of the form </p><p class="math-container">\[\begin{aligned}
+    x_k &amp;= f(x_{-1}) + w_{k-1} \\ 
+    z_k &amp;= h(x_k) + v_k
+\end{aligned}\]</p><h3 id=".-Initialization"><a class="docs-heading-anchor" href="#.-Initialization">0. Initialization</a><a id=".-Initialization-1"></a><a class="docs-heading-anchor-permalink" href="#.-Initialization" title="Permalink"></a></h3><p class="math-container">\[\begin{aligned}
+    x_0^a &amp;= \mu_0 \\ 
+    P_0 &amp;= \E[(x_0-x_0^a)(x_0-x_0^a)^T] 
+\end{aligned}\]</p><h3 id=".-Forecast-Step"><a class="docs-heading-anchor" href="#.-Forecast-Step">1. Forecast Step</a><a id=".-Forecast-Step-1"></a><a class="docs-heading-anchor-permalink" href="#.-Forecast-Step" title="Permalink"></a></h3><p class="math-container">\[\begin{aligned}
+    x_k^f &amp;= f(x_{k-1}^a) \\ 
+    P_k^f &amp;= J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}) + Q_{k-1}
+\end{aligned}\]</p><h3 id=".-Assimilation"><a class="docs-heading-anchor" href="#.-Assimilation">2. Assimilation</a><a id=".-Assimilation-1"></a><a class="docs-heading-anchor-permalink" href="#.-Assimilation" title="Permalink"></a></h3><p class="math-container">\[    x_{k^a} &amp;= x_k^f + K_k(z_k - h(x_k^f)) \\ 
+    K_k &amp;= P_k^fJ_h^T(x_{k}^f)\left[J_h(x_k^f)P_k^f(J_h^T(x_k^f) + R_k \right]^{-1} \\ 
+    P_k &amp;= \left(I - K_kJ_h(x_k^f) \right)P_k^f\]</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../dataassim/">« Data Assimilation Oveview</a><a class="docs-footer-nextpage" href="../../fdocs/">Function docs »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Saturday 23 April 2022 22:00">Saturday 23 April 2022</span>. Using Julia version 1.7.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
