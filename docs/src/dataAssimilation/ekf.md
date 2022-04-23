@@ -22,14 +22,10 @@ Consider now the forecast error produced by our model ``f`` at time index ``k``.
 ```
 If our functions ``f`` and ``h`` are *smooth enough* (in this case, ``C^1``), we may expand in a Taylor series and determine their linearization via the Jacobian about the analysis vector ``x_{k-1}^a``. That is, 
 ```math
-\begin{equation}
-    f(x_{k-1}) \appox f(x_{k-1}^a) + J_f(x_{k-1}^a)(x_{k-1}-x_{k-1}^a) + \text{ Higher Order Terms}
-\end{equation}
+f(x_{k-1}) \approx f(x_{k-1}^a) + J_f(x_{k-1}^a)(x_{k-1}-x_{k-1}^a) + \text{ Higher Order Terms}
 ```
 
 where 
 ```math
-\begin{equation}
-    J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\right] 
-\end{equation}
+J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\right] 
 ```
