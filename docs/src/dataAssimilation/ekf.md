@@ -178,7 +178,9 @@ We have a dynamical system of the form
 ```
 ### 2. Assimilation 
 ```math
+\begin{aligned}
     x_{k^a} &= x_k^f + K_k(z_k - h(x_k^f)) \\ 
     K_k &= P_k^fJ_h^T(x_{k}^f)\left[J_h(x_k^f)P_k^f(J_h^T(x_k^f) + R_k \right]^{-1} \\ 
     P_k &= \left(I - K_kJ_h(x_k^f) \right)P_k^f
+\end{aligned}
 ```
