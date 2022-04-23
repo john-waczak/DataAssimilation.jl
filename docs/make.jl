@@ -19,8 +19,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Extended Kalman Filter" => "ekf.md"
-        "Function docs" => "fdocs.md"
+        "Extended Kalman Filter" => "ekf.md",
+        "Function docs" => "fdocs.md",
     ],
 )
 
