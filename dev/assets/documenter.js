@@ -57,7 +57,12 @@ $(document).ready(function() {
       "right": "\\]",
       "display": true
     }
-  ]
+  ],
+  "macros": {
+    "\\cov": "\\text{cov}",
+    "\\E": "\\mathbb{E}",
+    "\\R": "\\mathbb{R}"
+  }
 }
 
   );
