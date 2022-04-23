@@ -22,14 +22,18 @@ Consider now the forecast error produced by our model ``f`` at time index ``k``.
 ```
 If our functions ``f`` and ``h`` are *smooth enough* (in this case, ``C^1``), we may expand in a Taylor series and determine their linearization via the Jacobian about the analysis vector ``x_{k-1}^a``. That is, 
 ```math
-f(x_{k-1}) \appox f(x_{k-1}^a) + J_f(x_{k-1}^a)(x_{k-1}-x_{k-1}^a) + \text{ Higher Order Terms}
+\begin{equation}
+    f(x_{k-1}) \appox f(x_{k-1}^a) + J_f(x_{k-1}^a)(x_{k-1}-x_{k-1}^a) + \text{ Higher Order Terms}
+\end{equation}
 ```
 
 where 
 ```math
-J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\rigth] = \begin{bmatrix}
-    \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\ 
-    \vdots & \ddots & & \\ 
-    \frac{\partial f_n}{\partial x_1} & \cdots & \frac{\partail f_n}{\partial x_n}
-\end{bmatrix}
+\begin{equation}
+    J_f := \left[ \dfrac{\partial f_i}{\partial x_j}\rigth] = \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\ 
+        \vdots & \ddots & & \\ 
+        \frac{\partial f_n}{\partial x_1} & \cdots & \frac{\partail f_n}{\partial x_n}
+    \end{bmatrix}
+\end{equation}
 ```
