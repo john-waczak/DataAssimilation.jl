@@ -6,9 +6,18 @@ CurrentModule = DataAssimilation
 
 Documentation for [DataAssimilation](https://github.com/john-waczak/DataAssimilation.jl).
 
-```@index
+
+<!-- Auto-magically generated TOC with links -->
+```@contents
+Pages = [
+    "index.md",
+    "ekf.md",
+    "fdocs.md",
+]
+Depth = 1
 ```
 
-```@autodocs
-Modules = [DataAssimilation]
-```
+
+
+<!-- ```@index -->
+<!-- ``` -->

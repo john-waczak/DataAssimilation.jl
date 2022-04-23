@@ -1,6 +1,10 @@
 using DataAssimilation
 using Documenter
 
+
+# NOTE: geostats.jl has good example documentation and structure in their make.jl
+
+
 DocMeta.setdocmeta!(DataAssimilation, :DocTestSetup, :(using DataAssimilation); recursive=true)
 
 makedocs(;
@@ -15,6 +19,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Extended Kalman Filter" => "ekf.md"
+        "Function docs" => "fdocs.md"
     ],
 )
 
