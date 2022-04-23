@@ -119,3 +119,20 @@ We now form the covariance matrix
     &= \left( I - K_k J_h(x_k^f)\right)P_k^f \left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T
 \end{aligned}
 ```
+We now seek to minimize ``\text{tr}(P_k)`` with respect to ``K_k``. The following identities will be helpful: 
+```math
+\begin{aligned}
+    \nabla_{A}\text{tr}(AB) &= B^T \\ 
+    \nabla_{A}\text{tr}(BA) &= B \\ 
+    \nabla_{A}\text{tr}(ABA) &= AB^T + AB  \\ 
+\end{aligned}
+```
+From these, we obtain 
+```math
+\begin{aligned}
+    0 &= \nabla_{K_k}\text{tr}(P_k) \\ 
+        &= -\left(J_h(x_k^f) P_k^f \right)^T - P_k^f\left( J_h(x_k^f) \right)^T + K_k\left( \left\{ J_h(x_k^f)P_k^f J_h^T(x_k^f)\right\}^T  + J_h(x_k^f P_k^f J_h^T(x_k^f))\right) + K_k(R_k^T + R_k) \\ 
+        &= -2P_k^f J_h^T(x_k^f) + 2K_k\left[ J_h(x_k^f) P_k^f J_h^T(x_k^f) + R_k \right] \\ 
+    K_k &= P_k^f J_h^T(x_k^f)\left[ J_h(x_k^f)P_k^f J_h^T(x_k^f) + R_k \right]^{-1}
+\end{aligned}
+```
