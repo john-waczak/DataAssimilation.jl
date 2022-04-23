@@ -33,7 +33,7 @@ To simulate the model, we must supply a vector of initial conditions, say ``x_0`
 ```math
 \begin{aligned}
     \mu_0 &= \E[x_0] & \in R^n \\
-    \P_0 &= \E\left[(x_0-\mu_0)(x_0-\mu_0)^T\right] & \in \R^{n\times n}
+    P_0 &= \E\left[(x_0-\mu_0)(x_0-\mu_0)^T\right] & \in \R^{n\times n}
 \end{aligned}
 ```
 
@@ -43,17 +43,19 @@ Here ``\E[\cdot]`` denotes the *expectation value*.
 We assume that the model and observations uncertainties have mean zero. Further, we assume that they are neither correleted with each other nor with the initial state vector. Finally, we make the (reasonable?) assumption that uncertainties have are not correlated between time steps, i.e 
 ```math
 \begin{aligned}
-    \E[w_k] &= 0 & \E[w_kw_j^T] &= 0 \text{ for } k\neq j \\ 
-    \E[v_k] &= 0 & \E[v_kv_j^T] &= 0 \text{ for } k\neq j \\ 
-    \E[v_kx_0^T] &= 0 & \E[v_k x_0^T] &= 0 \\ 
-    \E[w_kv_j^T] &= 0 & & 
+    &\E[w_k] = 0 & &\E[w_kw_j^T] = 0 \text{ for } k\neq j \\ 
+    &\E[v_k] = 0 & &\E[v_kv_j^T] = 0 \text{ for } k\neq j \\ 
+    &\E[v_kx_0^T] = 0 & &\E[v_k x_0^T] = 0 \\ 
+    &\E[w_kv_j^T] = 0 & & 
 \end{aligned}
 ```
 
 We also define the error covariance matrices 
 ```math
+\begin{alined}
     Q_k &:= \E[w_kw_k^T] \\ 
     R_k &:= \E[v_kv_k^T]
+\end{aligned}
 ```
 which we will use in our consideration of the final error of our analysis. 
 
