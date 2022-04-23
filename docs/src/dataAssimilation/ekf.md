@@ -114,7 +114,8 @@ We now form the covariance matrix
 ```math
 \begin{aligned}
     P_k &:= \E[e_ke_k^T] \\ 
-    &= \left( I - K_k J_h(x_k^f)\right)J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}^a)\left( I - K_k J_h(x_k^f)\right)^T + \left( I - K_k J_h(x_k^f)\right)Q_{k-1}\left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
+    &= \left( I - K_k J_h(x_k^f)\right)J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}^a)\left( I - K_k J_h(x_k^f)\right)^T \\ 
+    &\;\; + \left( I - K_k J_h(x_k^f)\right)Q_{k-1}\left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
     &= \left( I - K_k J_h(x_k^f)\right)\left[ J_f(x_{k-1}^a)P_{k-1} J_f^T(x_{k-1}^a) + Q_{k-1}  \right]\left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T \\ 
     &= \left( I - K_k J_h(x_k^f)\right)P_k^f \left( I - K_k J_h(x_k^f)\right)^T + K_kR_kK_k^T
 \end{aligned}
@@ -131,7 +132,8 @@ From these, we obtain
 ```math
 \begin{aligned}
     0 &= \nabla_{K_k}\text{tr}(P_k) \\ 
-        &= -\left(J_h(x_k^f) P_k^f \right)^T - P_k^f\left( J_h(x_k^f) \right)^T + K_k\left( \left\{ J_h(x_k^f)P_k^f J_h^T(x_k^f)\right\}^T  + J_h(x_k^f P_k^f J_h^T(x_k^f))\right) + K_k(R_k^T + R_k) \\ 
+        &= -\left(J_h(x_k^f) P_k^f \right)^T - P_k^f\left( J_h(x_k^f) \right)^T + K_k\left( \left\{ J_h(x_k^f)P_k^f J_h^T(x_k^f)\right\}^T  + J_h(x_k^f P_k^f J_h^T(x_k^f))\right) \\ 
+        &\;\;+ K_k(R_k^T + R_k) \\ 
         &= -2P_k^f J_h^T(x_k^f) + 2K_k\left[ J_h(x_k^f) P_k^f J_h^T(x_k^f) + R_k \right] \\ 
     K_k &= P_k^f J_h^T(x_k^f)\left[ J_h(x_k^f)P_k^f J_h^T(x_k^f) + R_k \right]^{-1}
 \end{aligned}
