@@ -16,10 +16,19 @@ makedocs(;
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://john-waczak.github.io/DataAssimilation.jl",
         assets=String[],
+        mathengine = KaTeX(Dict(
+            :macros => Dict(
+                "\\cov" => "\\text{cov}",
+                "\\R"   => "\\mathbb{R}",
+                "\\E"   => "\\mathbb{E}",
+            )
+        ))
     ),
     pages=[
         "Home" => "index.md",
-        "Extended Kalman Filter" => "ekf.md",
+        "Data Assimilation" => [
+            "Extended Kalman Filter" => "dataAssimilation/ekf.md",
+        ],
         "Function docs" => "fdocs.md",
     ],
 )
