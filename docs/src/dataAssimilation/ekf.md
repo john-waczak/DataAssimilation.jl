@@ -123,15 +123,15 @@ We now form the covariance matrix
 We now seek to minimize ``\text{tr}(P_k)`` with respect to ``K_k``. The following identities will be helpful: 
 ```math
 \begin{aligned}
-    \mathop{\nabla}^{}_{A}\text{tr}(AB) &= B^T \\ 
-    \mathop{\nabla}^{}_{A}\text{tr}(BA) &= B \\ 
-    \mathop{\nabla}^{}_{A}\text{tr}(ABA) &= AB^T + AB  \\ 
+    \mathop{\nabla}_{A}\text{tr}(AB) &= B^T \\ 
+    \mathop{\nabla}_{A}\text{tr}(BA) &= B \\ 
+    \mathop{\nabla}_{A}\text{tr}(ABA) &= AB^T + AB  \\ 
 \end{aligned}
 ```
 From these, we obtain 
 ```math
 \begin{aligned}
-    0 &= \mathop{\nabla}^{}_{K_k}\text{tr}(P_k) \\ 
+    0 &= \mathop{\nabla}_{K_k}\text{tr}(P_k) \\ 
         &= -\left(J_h(x_k^f) P_k^f \right)^T - P_k^f\left( J_h(x_k^f) \right)^T + K_k\left( \left\{ J_h(x_k^f)P_k^f J_h^T(x_k^f)\right\}^T  + J_h(x_k^f P_k^f J_h^T(x_k^f))\right) \\ 
         &\;\;+ K_k(R_k^T + R_k) \\ 
         &= -2P_k^f J_h^T(x_k^f) + 2K_k\left[ J_h(x_k^f) P_k^f J_h^T(x_k^f) + R_k \right] \\ 
@@ -152,3 +152,33 @@ Lastly, we substitute this result back into ``P_k`` to derive a simpler expressi
 ```
 
 ## Summary 
+Let's summarize the whole process: 
+We have a dynamical system of the form 
+```math
+\begin{aligned}
+    x_k &= f(x_{-1}) + w_{k-1} \\ 
+    z_k &= h(x_k) + v_k
+\end{aligned}
+```
+
+### 0. Initialization
+```math
+\begin{aligned}
+    x_0^a &= \mu_0 \\ 
+    P_0 &= \E[(x_0-x_0^a)(x_0-x_0^a)^T] 
+\end{aligned}
+```
+
+### 1. Forecast Step
+```math
+\begin{aligned}
+    x_k^f &= f(x_{k-1}^a) \\ 
+    P_k^f &= J_f(x_{k-1}^a)P_{k-1}J_f^T(x_{k-1}) + Q_{k-1}
+\end{aligned}
+```
+### 2. Assimilation 
+```math
+    x_{k^a} &= x_k^f + K_k(z_k - h(x_k^f)) \\ 
+    K_k &= P_k^fJ_h^T(x_{k}^f)\left[J_h(x_k^f)P_k^f(J_h^T(x_k^f) + R_k \right]^{-1} \\ 
+    P_k &= \left(I - K_kJ_h(x_k^f) \right)P_k^f
+```
