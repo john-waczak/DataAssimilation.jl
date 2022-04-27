@@ -87,7 +87,7 @@ function EKF(xf, Pf, y, R, h, Jh, params)
     K =Pf*H'*inv(denom)
 
     # compute analysis
-    xₐ = xf + K*(y-h(xf, params))
+    xₐ = xf + K*(y .- h(xf, params))
     Pₐ = (I - K*H)*Pf
 
     return xₐ, Pₐ
@@ -144,10 +144,16 @@ ylabel!("x(t)")
 u₀_f = [2.0; 3.0; 4.0]
 σ_f = 0.1
 P₀ = σ_f^2 .* I(3)
+Q = 0.0*I(3)
+
 
 # set up result
 uₐ = zeros(3, size(tspan[1]:dt:tspan[2], 1))
 uₐ[:, 1] = u₀_f
+
+Pₐ = zeros(size(uₐ, 1), size(uₐ, 1), size(tspan[1]:dt:tspan[2], 1))
+Pₐ[:,:,1] .= P₀
+
 
 # build an array of times for the integration
 times = [t for t ∈ ts_obs]
@@ -164,9 +170,22 @@ for k ∈ 2:size(times, 1)
 
     prob = ODEProblem(lorenz!, x₀, Δt, params, saveat=dt)
     sol = solve(prob)
+    uₐ[:, idx_i:idx_f] .= sol[:,:]
+
+    # loop through solution and update uncertainty... not doing this yet
+    for idx ∈ (idx_i+1):idx_f
+        Pₐ[:,:, idx] .= Jf(uₐ[:, idx-1], params)*Pₐ[:,:,idx-1]*Jf(uₐ[:, idx-1], params)' + Q
+    end
+
+    # we have now set the analysis equal to the forecast. Time to update the analsyis at the kth observation point
+
+
+    u_analysis, P_analysis = EKF(uₐ[:,idx_f], Pₐ[:,:,idx_f], y[k], R, h, Jh, params)
+
 
     # update uₐ with the analysis
-    uₐ[:, idx_i:idx_f]  .= sol[:,:]
+    uₐ[:, idx_f]  .= u_analysis
+    Pₐ[:,:, idx_f] .= P_analysis
 
 end
 
