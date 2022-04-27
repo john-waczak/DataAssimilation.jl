@@ -151,26 +151,16 @@ for k ∈ 1:nt
 
 end
 
+var_names = ["x(t)", "y(t)", "z(t)"]
+plots = []
+for i ∈ 1:3
+    p = plot(t, uTrue[i, :], color=:black, alpha=0.75, linewidth=2, label="truth")
+    plot!(p, t_m, w[i, :], seriestype=:scatter, color="light green", label="observation" )
+    plot!(p, t, ub[i, :], linestyle=:dashdot, color="purple", label="forecast")
+    plot!(p, t, ua[i, :], color="royal blue", alpha=1, linewidth = 1, label="analysis")
+    xlabel!(p, "t")
+    ylabel!(p, var_names[i])
+    push!(plots, p)
+end
 
-px = plot(t, uTrue[1,:], label="truth")
-plot!(px, t, ub[1,:], label="forecast")
-plot!(px, t_m, w[1,:], seriestype=:scatter, label="observation" )
-plot!(px, t, ua[1,:], label="analysis")
-xlabel!(px, "t")
-ylabel!(px, "x(t)")
-
-py = plot(t, uTrue[2,:], label="truth")
-plot!(py, t, ub[2,:], label="forecast")
-plot!(py, t_m, w[2,:], seriestype=:scatter, label="observation" )
-plot!(py, t, ua[2,:], label="analysis")
-xlabel!(py, "t")
-ylabel!(py, "y(t)")
-
-pz = plot(t, uTrue[3,:], label="truth")
-plot!(pz, t, ub[3,:], label="forecast")
-plot!(pz, t_m, w[3,:], seriestype=:scatter, label="observation" )
-plot!(pz, t, ua[3,:], label="analysis")
-xlabel!(pz, "t")
-ylabel!(pz, "z(t)")
-
-plot(px, py, pz, layout=(3,1))
+plot(plots..., layout=(3,1))
