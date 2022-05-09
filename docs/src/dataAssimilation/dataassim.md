@@ -20,78 +20,53 @@ For ODE systems, ``\mathcal{M}`` represents the time integration scheme for a sy
 \dfrac{du}{dt} = f(u, t; \theta)
 ```
 
-To measure the performance of our assimilation scheme, we denote the *true* value of the state vector asd ``u^{(t)}``. The output of our model is denoted ``u^{(b)}`` (*b* subscript for *background*). The discrepancy between the true value and our forecast is denoted ``\xi_b = u_t - u_b`` characterizing the extent to which our model prediction is imperfect. 
+To measure the performance of our assimilation scheme, we denote the *true* value of the state vector asd ``u^{(t)}``. The output of our model is denoted ``u^{(b)}`` (*b* subscript for *background*). The discrepancy between the true value and our forecast is denoted ``\xi^{(b)} = u^{(t)} - u^{(b)}`` characterizing the extent to which our model prediction is imperfect. 
 
 The observations of our system are denoted by ``w_k = w(t_k)``. These observations do not neccessarily need to be components of the state vector ``u``, but rather, are related to it via the *observation function* ``h``. For example, one may attempt to predict sea surface temperature using data assimilation with data from satellite observations. The function ``h`` would then be the Stefan-Boltzmann law. However, real world data is noisy, which we must take into account. We write 
 ```math
-w_k = h(u_k) + \xi_m
+w_k = h(u_k) + \xi_k^{(m)}
 ```
-where ``\xi_m`` denotes this measurement noise. 
+where ``\xi_k^{(m)}`` denotes this measurement noise. 
 
 
+Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to obtain the *optimal* or best-possible prediction called the **analysis**, ``u^{(a)}``. This analysis will still not be perfect, so we further specify the analysis error via 
+```math
+\xi^{(a)} = u^{(t)} - u^{(a)}
+```
 
 
+## Summary 
+```math
+\begin{aligned}
+    &u_k^{(t)} \in \R^n &\text{the true state vector} \\ 
+    $u_k^{(b)} \in \R^n &\text{the k^{th} model forecast} \\ 
+    $u_k^{(a)} \in \R^n &\text{the analysis} \\ 
+    $w_k \in \R^m &\text{the k^{th} observation vector} \\ 
+    $\xi^{(b)} \in \R^n &\text{the model forecast error}\\
+    $\xi^{(m)} \in \R^m &\text{the observation noise vector}\\ 
+    $\xi^{(a)} \in \R^n &\text{the analysis error}
+    $\mathcal{M}:\R^n\to\R^n &\text{the model update function}\\
+    $f:\R^n\to\R^n &\text{differential equation model}\\ 
+    $h:\R^n\to\R^m  &\text{observation function}
+\end{aligned}
+```
 
+## Assumptions
+To make possible the derivation of a *unique* analysis ``u^{(a)}``, the following assumptions are in order. 
+```math
+\begin{aligned}
+    &\E[\xi_k^{(b)}] = 0 & &\E[\xi_k^{(b)}\xi_j^{(b)}^T] = 0 \text{ for } k\neq j\\
+    &\E[\xi_k^{(m)}] = 0 & &\E[\xi_k^{(m)}\xi_j^{(m)}^T] = 0 \text{ for } k\neq j\\
+    &\E[\xi_k^{(b)}u_0^T] = 0 & &\E[\xi_k^{(m)}u_0^T] = 0
+    &\E[\xi_k^{(b)}\xi_j^{(m)}] = 0 & & 
+\end{aligned}
+```
 
-
-
-<!-- ## Problem Framing -->
-<!-- Data Assimilation can be easily understood in terms of discrete dynamical systems that involve both a model function ``f(\cdot)`` as well as observations ``z``. This can be summarized by:  -->
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     x_k &= f(x_{k-1}) + w_{k-1} \\  -->
-<!--     z_k &= h(x_k) + v_k -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-<!-- where  -->
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     & x_k\in \R^n &\text{the state vector} \\  -->
-<!--     & w_k \in \R^n &\text{model error} \\  -->
-<!--     & z_k \in \R^m &\text{observation vector} \\  -->
-<!--     & v_k \in \R^m &\text{observation error}\\  -->
-<!--     & f:\R^n \to \R^n &\text{Model function (aka forecast function)} \\  -->
-<!--     & h:\R^n \to \R^m &\text{Observation function} \\  -->
-<!--     & x_k^a \in \R^n &\text{the analysis vector; our best estimate} \\  -->
-<!--     & x_k^f := f(x_k^a) \in \R^n &\text{model output; forecast vector}\\  -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-
-<!-- In words, we say that the current state of the system is given by our model acting on the previous state *plus* some uncertainty in the previous state captured by ``w_{k-1}``. At the same time we may make a set of observations captured by ``z_k`` which come directly from the model state via a function ``h(\cdot)`` and an associated uncertainty ``v_k``.  -->
-
-<!-- ## Initial Conditions  -->
-<!-- To simulate the model, we must supply a vector of initial conditions, say ``x_0``. We also supply the initial mean and covariance matrix, denoted -->
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     \mu_0 &= \E[x_0] & \in R^n \\ -->
-<!--     P_0 &= \E\left[(x_0-\mu_0)(x_0-\mu_0)^T\right] & \in \R^{n\times n} -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-
-<!-- Here ``\E[\cdot]`` denotes the *expectation value*.  -->
-
-<!-- ## Assumptions  -->
-<!-- We assume that the model and observations uncertainties have mean zero. Further, we assume that they are neither correleted with each other nor with the initial state vector. Finally, we make the (reasonable?) assumption that uncertainties have are not correlated between time steps, i.e  -->
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     &\E[w_k] = 0 & &\E[w_kw_j^T] = 0 \text{ for } k\neq j \\  -->
-<!--     &\E[v_k] = 0 & &\E[v_kv_j^T] = 0 \text{ for } k\neq j \\  -->
-<!--     &\E[v_kx_0^T] = 0 & &\E[v_k x_0^T] = 0 \\  -->
-<!--     &\E[w_kv_j^T] = 0 & &  -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-
-<!-- We also define the error covariance matrices  -->
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     Q_k &:= \E[w_kw_k^T] \\  -->
-<!--     R_k &:= \E[v_kv_k^T] -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-<!-- which we will use in our consideration of the final error of our analysis.  -->
-
-
-<!-- ## Goal  -->
-<!-- The goal of data assimilation is to optimally combine our model forecast ``x_k^f`` with our observations ``z_k`` to acheive an analysis ``x_k^a`` which minimizes the error ``e_k = x_k - x_k^a`` between the true value ``x_k`` and our prediction ``x_k^a``.  -->
-
-<!-- In the next section we will examine a popular approach called the **Extended Kalman Filter**. -->
+We also define the error covariance matrices
+```math
+\begin{aligned}
+    Q_k &:= \E[\xi_k^{(b)}\xi_k^{(b)}^T] \\
+    R_k &:= \E[\xi_k^{(m)}\xi_k^{(m)}^T]
+\end{aligned}
+```
+which we will use in our consideration of the final error of our analysis.
