@@ -36,6 +36,7 @@ Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to
 
 
 ## Summary 
+
 ```math
 \begin{aligned}
     &u_k^{(t)} \in \R^n &\text{the true state vector} \\ 
@@ -53,6 +54,7 @@ Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to
 
 ## Assumptions
 To make possible the derivation of a *unique* analysis ``u^{(a)}``, the following assumptions are in order. 
+
 ```math
 \begin{aligned}
     &\E[\xi_k^{(b)}] = 0 & &\E[\xi_k^{(b)}\xi_j^{(b)}^T] = 0 \text{ for } k\neq j\\
@@ -63,10 +65,12 @@ To make possible the derivation of a *unique* analysis ``u^{(a)}``, the followin
 ```
 
 We also define the error covariance matrices
+
 ```math
 \begin{aligned}
     Q_k &:= \E[\xi_k^{(b)}\xi_k^{(b)}^T] \\
     R_k &:= \E[\xi_k^{(m)}\xi_k^{(m)}^T]
 \end{aligned}
 ```
+
 which we will use in our consideration of the final error of our analysis.
