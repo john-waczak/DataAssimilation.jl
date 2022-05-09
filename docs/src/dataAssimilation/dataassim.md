@@ -34,49 +34,41 @@ Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to
 \xi^{(a)} = u^{(t)} - u^{(a)}
 ```
 
-## Summary
+
+## Summary 
+
 ```math
 \begin{aligned}
-    &u_k^{(t)} \in \R^n &\text{the true state vector} \\
+    &u_k^{(t)} \in \R^n &\text{the true state vector} \\ 
+    &u_k^{(b)} \in \R^n &\text{the k^{th} model forecast} \\ 
+    &u_k^{(a)} \in \R^n &\text{the analysis} \\ 
+    &w_k \in \R^m &\text{the k^{th} observation vector} \\ 
+    &\xi^{(b)} \in \R^n &\text{the model forecast error}\\
+    &\xi^{(m)} \in \R^m &\text{the observation noise vector}\\ 
+    &\xi^{(a)} \in \R^n &\text{the analysis error}\\
+    &\mathcal{M}:\R^n\to\R^n &\text{the model update function}\\
+    &f:\R^n\to\R^n &\text{differential equation model}\\ 
+    &h:\R^n\to\R^m  &\text{observation function}
 \end{aligned}
 ```
 
-<!-- ## Summary  -->
+## Assumptions
+To make possible the derivation of a *unique* analysis ``u^{(a)}``, the following assumptions are in order.
+```math
+\begin{aligned}
+    &\E[\xi_k^{(b)}] = 0 & &\E[\xi_k^{(b)}(\xi_j^{(b)})^T] = 0 \text{ for } k\neq j\\
+    &\E[\xi_k^{(m)}] = 0 & &\E[\xi_k^{(m)}(\xi_j^{(m)})^T] = 0 \text{ for } k\neq j\\
+    &\E[\xi_k^{(b)}(u_0)^T] = 0 & &\E[\xi_k^{(m)}(u_0)^T] = 0\\
+    &\E[\xi_k^{(b)}\xi_j^{(m)}] = 0 & & 
+\end{aligned}
+```
 
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     &u_k^{(t)} \in \R^n &\text{the true state vector} \\  -->
-<!--     $u_k^{(b)} \in \R^n &\text{the k^{th} model forecast} \\  -->
-<!--     $u_k^{(a)} \in \R^n &\text{the analysis} \\  -->
-<!--     $w_k \in \R^m &\text{the k^{th} observation vector} \\  -->
-<!--     $\xi^{(b)} \in \R^n &\text{the model forecast error}\\ -->
-<!--     $\xi^{(m)} \in \R^m &\text{the observation noise vector}\\  -->
-<!--     $\xi^{(a)} \in \R^n &\text{the analysis error}\\ -->
-<!--     $\mathcal{M}:\R^n\to\R^n &\text{the model update function}\\ -->
-<!--     $f:\R^n\to\R^n &\text{differential equation model}\\  -->
-<!--     $h:\R^n\to\R^m  &\text{observation function} -->
-<!-- \end{aligned} -->
-<!-- ``` -->
+We also define the error covariance matrices
 
-<!-- ## Assumptions -->
-<!-- To make possible the derivation of a *unique* analysis ``u^{(a)}``, the following assumptions are in order.  -->
+```math
+\begin{aligned}
+    Q_k &:= \E[\xi_k^{(b)}(\xi_k^{(b)})^T] \\
+    R_k &:= \E[\xi_k^{(m)}(\xi_k^{(m)})^T]
+\end{aligned}
 
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     &\E[\xi_k^{(b)}] = 0 & &\E[\xi_k^{(b)}(\xi_j^{(b)})^T] = 0 \text{ for } k\neq j\\ -->
-<!--     &\E[\xi_k^{(m)}] = 0 & &\E[\xi_k^{(m)}(\xi_j^{(m)})^T] = 0 \text{ for } k\neq j\\ -->
-<!--     &\E[\xi_k^{(b)}(u_0)^T] = 0 & &\E[\xi_k^{(m)}(u_0)^T] = 0\\ -->
-<!--     &\E[\xi_k^{(b)}\xi_j^{(m)}] = 0 & &  -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-
-<!-- We also define the error covariance matrices -->
-
-<!-- ```math -->
-<!-- \begin{aligned} -->
-<!--     Q_k &:= \E[\xi_k^{(b)}(\xi_k^{(b)})^T] \\ -->
-<!--     R_k &:= \E[\xi_k^{(m)}(\xi_k^{(m)})^T] -->
-<!-- \end{aligned} -->
-<!-- ``` -->
-
-<!-- which we will use in our consideration of the final error of our analysis. -->
+which we will use in our consideration of the final error of our analysis.
