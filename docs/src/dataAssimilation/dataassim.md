@@ -34,7 +34,6 @@ Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to
 \xi^{(a)} = u^{(t)} - u^{(a)}
 ```
 
-
 ## Summary 
 
 ```math
@@ -46,6 +45,7 @@ Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to
     &\xi^{(b)} \in \R^n &\text{the model forecast error}\\
     &\xi^{(m)} \in \R^m &\text{the observation noise vector}\\ 
     &\xi^{(a)} \in \R^n &\text{the analysis error}\\
+    &\xi^{(p)} \in \R^n &\text{the process noise if we used our model on the true state}\\
     &\mathcal{M}:\R^n\to\R^n &\text{the model update function}\\
     &f:\R^n\to\R^n &\text{differential equation model}\\ 
     &h:\R^n\to\R^m  &\text{observation function}
@@ -59,15 +59,17 @@ To make possible the derivation of a *unique* analysis ``u^{(a)}``, the followin
     &\E[\xi_k^{(b)}] = 0 & &\E[\xi_k^{(b)}(\xi_j^{(b)})^T] = 0 \text{ for } k\neq j\\
     &\E[\xi_k^{(m)}] = 0 & &\E[\xi_k^{(m)}(\xi_j^{(m)})^T] = 0 \text{ for } k\neq j\\
     &\E[\xi_k^{(b)}(u_0)^T] = 0 & &\E[\xi_k^{(m)}(u_0)^T] = 0\\
-    &\E[\xi_k^{(b)}\xi_j^{(m)}] = 0 & & 
+    &\E[\xi_k^{(b)}\xi_j^{(m)}] = 0 & &  \\ 
+    &\E[u_k^{(t)}] = u_k^{(b)} & &
 \end{aligned}
 ```
 
 We also define the error covariance matrices
 ```math
 \begin{aligned}
-    Q_k &:= \E[\xi_k^{(b)}(\xi_k^{(b)})^T] \\ 
-    R_k &:= \E[\xi_k^{(m)}(\xi_k^{(m)})^T]
+    Q_k &:= \E[\xi_k^{(p)}(\xi_k^{(p)})^T] \\ 
+    R_k &:= \E[\xi_k^{(m)}(\xi_k^{(m)})^T] \\ 
+    B_k &:= \E[\xi_k^{(b)}(\xi_k^{(b)})^T] 
 \end{aligned}
 ```
 
