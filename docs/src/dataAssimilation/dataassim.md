@@ -64,11 +64,11 @@ To make possible the derivation of a *unique* analysis ``u^{(a)}``, the followin
 ```
 
 We also define the error covariance matrices
-
 ```math
 \begin{aligned}
-    Q_k &:= \E[\xi_k^{(b)}(\xi_k^{(b)})^T] \\
+    Q_k &:= \E[\xi_k^{(b)}(\xi_k^{(b)})^T] \\ 
     R_k &:= \E[\xi_k^{(m)}(\xi_k^{(m)})^T]
 \end{aligned}
+```
 
 which we will use in our consideration of the final error of our analysis.
