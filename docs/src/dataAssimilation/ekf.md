@@ -1,6 +1,5 @@
 # Extended Kalman Filter
-
-For the **Extended Kalman Filter** we seek to find the ``x_k^a`` that minimizes ``e_k = x_k - x_k^a`` in the least-squares sense. 
+For the **Extended Kalman Filter** we seek to find the ``x_k^a`` that minimizes ``\xi_k^{(a)} = u_k^{(t)} - x_k^{(t)}`` in the least-squares sense. 
 
 ## Initialization
 

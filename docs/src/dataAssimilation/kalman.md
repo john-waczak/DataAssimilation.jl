@@ -52,19 +52,28 @@ Let's suppose that the analysis has the form
 ```math
 u_{k+1}^{(a)} = \nu + K_{k+1}w_{k+1}
 ```
-for some vector ``\nu\in\R^n`` and matrix ``K_{k+1}\in\R^{m\times n}``. In a perfect world, we would have ``\E[u_{k+1}^{(t)}-u_{k+1}^{(a)}] = 0``. Therefore, 
+for some vector ``\nu\in\R^n`` and matrix ``K_{k+1}\in\R^{m\times n}``. In a perfect world, we would have ``\E[u_{k}^{(t)}-u_{k}^{(a)}] = 0``. Therefore, 
 ```math
 \begin{aligned}
-    0 &= \E[u_{k+1}^{(t)}-u_{k+1}^{(a)}] \\ 
-    &= \E[({u_{k+1}^{(b)}+\xi_{k+1}^b) - (a + K_kw_k)] \\ 
-    &= \E[({u_{k+1}^{(b)}+\xi_{k+1}^b) - (a + K_kH_ku_k^{(t)} + K_k\xi_k^{(m)})] \\ 
-    &= \E[{u_{k+1}^{(b)}] + \E[\xi_{k+1}^b] - \E[a] -K_kH_k\E[u_k^{(t)}] - K_k\E[\xi_k^{(m)}] \\ 
-    &= u_{k+1}^{(b)} + 0 -a -K_kH_k\E[u_k^{(t)}] - 0 \\ 
-    &= u_{k+1}^{(b)} - a - K_kH_ku_k^{(b)}\\ 
-    \Rightarrow a &= u_{k+1}^{(b)} - K_kH_ku_k^{(b)}
+    0 &= \E[u_k^{(t)} - u_k^{(a)}] \\ 
+    &= \E[(u_k^{(b)} + \xi_k^{(b)}) - (a + K_kw_k)] \\ 
+    &= \E[(u_k^{(b)} + \xi_k^{(b)}) - (a + K_kH_ku_k^{(t)} + K_k\xi_k^{(m)})] \\ 
+    &= \E[u_k^{(b)}] + \E[\xi_k^{(b)}] - \E[a] -K_kH_k\E[u_k^{(t)}] - K_k\E[\xi_k^{(m)}]\\
+    &= u_k^{(b)} + 0 - a - K_kH_ku_k^{(b)} - 0 \\ 
+    &= u_k^{(b)} - a - K_kH_ku_k^{(b)} \\ 
+    \Rightarrow a &= u_k^{(b)} - K_kH_ku_k^{(b)}
 \end{aligned}
 ```
 which we now substitute to obtain 
 ```math
 \boxed{u_k^{(a)} = u_k^{(b)} + K_k(w_k - H_ku_k^{(b)})}
+```
+
+Now that we know the form for the analysis we may derive the optimal matrix `K_k` by optimization of `P_k`. We have
+```math
+\begin{aligned}
+    \xi_{k}^{(a)} &= u_{k}^{(t)} - u_k^{(a)} \\ 
+    &= M_{k-1}u_{k-1}^{(t)} + \xi_{k-1}^{(p)} - u_k^{(b)} - K_k(w_k - H_ku_k^{(b)}) \\ 
+    &= M_{k-1}u_{k-1}^{(t)} + \xi_{k-1}^{(p)} - M_{k-1}u_{k-1}^{(a)} - K_k(H_ku_k^{(t)} - H_ku_k^{(b)} + \xi_k^{(m)}) \\ 
+\end{aligned}
 ```
