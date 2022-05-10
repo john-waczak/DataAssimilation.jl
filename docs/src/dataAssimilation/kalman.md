@@ -4,27 +4,34 @@ Given some model for the error covariance matrices $Q_k$ and $R_k$, we would lik
 The original implementation of the Kalman filter was for strictly linear systems. We will first develop the analysis for this simplified case adn then will generalize to the **Extended Kalman Filter** (EKF) that can handle fully nonlinear situations.
 
 In the linear case, our system may be written as 
+
 $$
 \begin{aligned}
     u_{k+1}^{(t)} &= M_ku_k^{(t)} + \xi_{k+1}^{(p)} \\ 
     w_k &= H_ku_k^{(t)} + \xi_k^{(m)}
 \end{aligned}
 $$
+
 where $M_k$ and $H_k$ are now matrices defining the linear problem. 
 
 The goal of the Kalman filter is to derive the analysis $u^{(a)}$ which optimizes the trace of the analysis error covariance matrix (i.e. sum of squared errors): 
+
 $$
 \mathrm{Tr}\left( P_k\right) := \E[(u_k^{(t)}-u_k^{(a)})^T(u_k^{(t)}-u_k^{(a)})]
 $$
+
 Finding the analysis consists of two steps: the forecast step and the assimilation step.
 
 
 ## Forecast Step
 Assume we have the analysis at time $t_k$ denoted $u_k^{(a)}$. Then the forecast for time $t_{k+1}$ is
+
 $$
     u_{k+1}^{(b)} = M_ku_k^{(a)}
 $$
+
 The background error is therefore 
+
 $$
 \begin{aligned}
     \xi_{k+1}^{(b)} &= u_{k+1}^{(t)} - u_{k+1}^{(b)} \\ 
@@ -33,14 +40,18 @@ $$
     &= M_k\xi_k^{(a)} + \xi_{k+1}^{(p)}
 \end{aligned}
 $$
+
 We may now evaluate the covariance matrix of our background estimate as: 
+
 $$
 \begin{aligned}
     B_{k+1} &= \E[\xi_{k+1}^{(b)}(\xi_{k+1}^{(b)})^T] \\ 
     &= \E\left[\left(M_k\xi_k^{(a)} + \xi_{k+1}^p \right) \left(M_k\xi_k^{(a)} + \xi_{k+1}^p \right)^T \right] \\ 
 \end{aligned}
 $$
+
 If we presume that $\E[\xi_k^{(b)}(\xi_{k+1}^{(p)})^T] = 0$, then the cross terms vanish and we are left with 
+
 $$
 \boxed{B_{k+1} = M_kP_kM_k^T + Q_{k+1}}
 $$
@@ -49,10 +60,13 @@ Thus we now have the background (i.e forecast) estimate of the state at $t_{k+1}
 
 ## Data Assimilation Step
 Let's suppose that the analysis has the form 
+
 $$
 u_{k+1}^{(a)} = \nu + K_{k+1}w_{k+1}
 $$
+
 for some vector $\nu\in\R^n$ and matrix $K_{k+1}\in\R^{m\times n}$. In a perfect world, we would have $\E[u_{k}^{(t)}-u_{k}^{(a)}] = 0$. Therefore, 
+
 $$
 \begin{aligned}
     0 &= \E[u_k^{(t)} - u_k^{(a)}] \\ 
@@ -64,7 +78,9 @@ $$
     \Rightarrow \nu &= u_k^{(b)} - K_kH_ku_k^{(b)}
 \end{aligned}
 $$
+
 which we now substitute to obtain 
+
 $$
 \boxed{u_k^{(a)} = u_k^{(b)} + K_k(w_k - H_ku_k^{(b)})}
 $$
