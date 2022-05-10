@@ -56,12 +56,12 @@ for some vector ``\nu\in\R^n`` and matrix ``K_{k+1}\in\R^{m\times n}``. In a per
 ```math
 \begin{aligned}
     0 &= \E[u_k^{(t)} - u_k^{(a)}] \\ 
-    &= \E[(u_k^{(b)} + \xi_k^{(b)}) - (a + K_kw_k)] \\ 
-    &= \E[(u_k^{(b)} + \xi_k^{(b)}) - (a + K_kH_ku_k^{(t)} + K_k\xi_k^{(m)})] \\ 
-    &= \E[u_k^{(b)}] + \E[\xi_k^{(b)}] - \E[a] -K_kH_k\E[u_k^{(t)}] - K_k\E[\xi_k^{(m)}]\\
-    &= u_k^{(b)} + 0 - a - K_kH_ku_k^{(b)} - 0 \\ 
-    &= u_k^{(b)} - a - K_kH_ku_k^{(b)} \\ 
-    \Rightarrow a &= u_k^{(b)} - K_kH_ku_k^{(b)}
+    &= \E[(u_k^{(b)} + \xi_k^{(b)}) - (\nu + K_kw_k)] \\ 
+    &= \E[(u_k^{(b)} + \xi_k^{(b)}) - (\nu + K_kH_ku_k^{(t)} + K_k\xi_k^{(m)})] \\ 
+    &= \E[u_k^{(b)}] + \E[\xi_k^{(b)}] - \E[\nu] -K_kH_k\E[u_k^{(t)}] - K_k\E[\xi_k^{(m)}]\\
+    &= u_k^{(b)} + 0 - \nu - K_kH_ku_k^{(b)} - 0 \\ 
+    &= u_k^{(b)} - \nu - K_kH_ku_k^{(b)} \\ 
+    \Rightarrow \nu &= u_k^{(b)} - K_kH_ku_k^{(b)}
 \end{aligned}
 ```
 which we now substitute to obtain 
@@ -72,8 +72,26 @@ which we now substitute to obtain
 Now that we know the form for the analysis we may derive the optimal matrix `K_k` by optimization of `P_k`. We have
 ```math
 \begin{aligned}
-    \xi_{k}^{(a)} &= u_{k}^{(t)} - u_k^{(a)} \\ 
-    &= M_{k-1}u_{k-1}^{(t)} + \xi_{k-1}^{(p)} - u_k^{(b)} - K_k(w_k - H_ku_k^{(b)}) \\ 
-    &= M_{k-1}u_{k-1}^{(t)} + \xi_{k-1}^{(p)} - M_{k-1}u_{k-1}^{(a)} - K_k(H_ku_k^{(t)} - H_ku_k^{(b)} + \xi_k^{(m)}) \\ 
+    \xi_k^{(a)} &= u_k^{(t)} - u_k^{(a)} \\ 
+                &= M_{k-1}u_{k-1}^{(t)} + \xi_{k}^{(p)} - u_k^{(b)} - K_k\left(w_k - H_ku_k^{(b)} \right) \\ 
+                &= M_{k-1}u_{k-1}^{(t)} + \xi_{k}^{(p)} - M_{k-1}u_{k-1}^{(a)} - K_k\left(H_ku_k^{(t)} + \xi_k^{(m)} - H_ku_k^{(b)} \right) \\ 
+                &= M_{k-1}u_{k-1}^{(t)} + \xi_{k}^{(p)} - M_{k-1}u_{k-1}^{(a)} - K_kH_ku_k^{(t)} - K_k\xi_k^{(m)} + K_kH_ku_k^{(b)} \\ 
+                &= M_{k-1}u_{k-1}^{(t)} + \xi_{k}^{(p)} - M_{k-1}u_{k-1}^{(a)} - K_kH_ku_k^{(t)} - K_k\xi_k^{(m)} + K_kH_ku_k^{(b)} \\ 
+                &= \Big{ M_{k-1}(\xi_{k-1}^{(a)}+u_{k-1}^{(a)}) + \xi_{k}^{(p)} - M_{k-1}u_{k-1}^{(a)} \Big} - K_kH_ku_k^{(t)} - K_k\xi_k^{(m)} + K_kH_ku_k^{(b)} \\ 
+                &= \Big{ M_{k-1}\xi_{k-1}^{(a)} + \xi_{k}^{(p)} \Big} - K_kH_ku_k^{(t)} + K_kH_ku_k^{(b)} - K_k\xi_k^{(m)}\\ 
+                &= M_{k-1}\xi_{k-1}^{(a)} + \xi_{k}^{(p)} - K_kH_k(M_{k-1}u_{k-1}^{(t)} + \xi_k^{(b)}) + K_kH_ku_k^{(b)} - K_k\xi_k^{(m)}\\ 
+                &= M_{k-1}\xi_{k-1}^{(a)} + \xi_{k}^{(p)} - K_kH_kM_{k-1}(\xi_{k-1}^{(a)} + u_{k-1}^a) - K_kH_k\xi_k^{(b)} + K_kH_ku_k^{(b)} - K_k\xi_k^{(m)}\\ 
+                &= M_{k-1}\xi_{k-1}^{(a)} + \xi_{k}^{(p)} - K_kH_kM_{k-1}(\xi_{k-1}^{(a)} + u_{k-1}^a) - K_kH_k\xi_k^{(b)} + K_kH_kM_{k-1}u_{k-1}^{(a)} - K_k\xi_k^{(m)}\\ 
+                &= M_{k-1}\xi_{k-1}^{(a)} + \xi_{k}^{(p)} - K_kH_kM_{k-1}\xi_{k-1}^{(a)} - K_kH_k\xi_k^{(b)} - K_k\xi_k^{(m)}\\ 
+                &= \big(I-K_kH_k \big)(M_{k-1}\xi_{k-1}^{(a)} - \xi_{k}^p) - K_k\xi_k^{(m)}\\
+\end{aligned}
+```
+and therefore the covariance matrix is 
+```math
+\begin{aligned}
+    P_k &= \E[\xi_{k}^{(a)}(\xi_{k}^{(a)})^T] \\ 
+        &= \E\Big[\left(\big(I-K_kH_k \big)(M_{k-1}\xi_{k-1}^{(a)} - \xi_{k}^p) - K_k\xi_k^{(m)} \right) \left(\big(I-K_kH_k \big)(M_{k-1}\xi_{k-1}^{(a)} - \xi_{k}^p) - K_k\xi_k^{(m)} \right)^T \Big] \\ 
+        &= \big(I-K_kH_k \big)(M_{k-1}\E[\xi_{k-1}^{(a)}(\xi_{k-1}^{(a)})^T]M_{k-1}^T)\big(I-K_kH_k \big)^T + \big(I-K_kH_k \big)\E[\xi_k^{(p)}(\xi_k^{(p)})^T]\big(I-K_kH_k \big)^T - K_k\E[\xi_{k}^{(m)}(\xi_k^{(m)})^T]K_k^T \\ 
+        &= \big(I-K_kH_k \big)B_k\big(I-K_kH_k \big)^T - K_kR_kK_k^T
 \end{aligned}
 ```
