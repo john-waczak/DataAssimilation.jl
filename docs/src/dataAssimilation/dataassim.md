@@ -39,9 +39,9 @@ Given our model predictions ``u_{k}^{(b)}`` and observations ``w_k``, we seek to
 ```math
 \begin{aligned}
     &u_k^{(t)} \in \R^n &\text{the true state vector} \\ 
-    &u_k^{(b)} \in \R^n &\text{the k^{th} model forecast} \\ 
+    &u_k^{(b)} \in \R^n &\text{the kth model forecast} \\ 
     &u_k^{(a)} \in \R^n &\text{the analysis} \\ 
-    &w_k \in \R^m &\text{the k^{th} observation vector} \\ 
+    &w_k \in \R^m &\text{the kth observation vector} \\ 
     &\xi^{(b)} \in \R^n &\text{the model forecast error}\\
     &\xi^{(m)} \in \R^m &\text{the observation noise vector}\\ 
     &\xi^{(a)} \in \R^n &\text{the analysis error}\\
