@@ -114,18 +114,22 @@ and therefore the covariance matrix is
 \end{aligned}
 ```
 
+$$ Deriving ``K_k`` 
 The Kalman filter is defined at that ``K_k`` which which minimizes the sum of squared analysis errors, i.e. the trace of the analysis error covariance matrix. The following identies will be useful: 
 ```math
 \begin{aligned}
     \mathop{\nabla}_{A}\text{tr}(AB) &= B^T \\ 
-    \mathop{\nabla}_{A}\text{tr}(BA) &= B \\ 
-    \mathop{\nabla}_{A}\text{tr}(ABA) &= AB^T + AB  \\ 
+    \mathop{\nabla}_{A}\text{tr}(BA^T) &= B \\ 
+    \mathop{\nabla}_{A}\text{tr}(ABA^T) &= AB^T + AB  \\ 
 \end{aligned}
 ```
 from which we obtain 
 ```math
 \begin{aligned}
     0 &= \mathop{\nabla}_{K_k}\text{tr}(P_k) \\ 
-      &= 
+      &= \mathop{\nabla}_{K_k}\Big\{ B_k -B_kH_k^TK_k^T - K_kH_kB_k  + K_kH_kB_kH_k^TB_k^T - K_kR_kK_k^T \Big\} \\ 
+      &= -B_kH_k^T - (H_kB_k)^T + K_k\left[H_kB_kH_k^T + (H_kB_kH_k^T)^T - R_k+R_k^T\right] \\
+      &= -2B_kH_k^T + 2K_k\left(H_kB_kH_k^2 - R_k \right) \\ 
+  \Rightarrow K_k &= B_kH_k^T\Big[ H_kB_kH_k^T - R_k \Big]^{-1}
 \end{aligned}
 ```
