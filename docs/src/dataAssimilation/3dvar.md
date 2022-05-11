@@ -30,3 +30,41 @@ Suppose that we have ``h(u) = Hu`` so that ``D_h(u) = H``. Then, we have
     \left(H^TR^{-1}H + B^{-1} \right)u^{(a)} &= H^TR^{-1} + B^{-1}u^{(b)}
 \end{aligned}
 ```
+Thus we see that the analysis is given by 
+```math
+    u^{(a)} = u^{(b)} + BH^T\left( R + HB^TH \right)^{-1}(w-Hu^{(b)})
+```
+which agrees with what we found for the Linear Kalman Filter. 
+
+## Nonlinear Case
+
+To deal with the nonlinearity, we can expand ``h`` about an initial guess ``u^{(c)}`` which we will later choose to be ``u^{(b)}`` for convenience. 
+```math
+    h(u^{(a)}) \approx h(u^{(c)}) + D_h(u^{(c)})\Delta u
+```
+Using this, we have 
+```math
+\begin{aligned}
+    D_h^T(u^{(a)})R^{-1}(w-h(u^{(a)})) &= B^{-1}(u^{(a)} - u^{(b)}) \\ 
+    D_h^T(u^{(a)})R^{-1}(w-h(u^{(c)})-D_h(u^{(c)})\Delta u) &\approx B^{-1}(u^{(c)} + \Delta u - u^{(b)}) \\ 
+    D_h^T(u^{(c)})R^{-1}(w-h(u^{(c)})-D_h(u^{(c)})\Delta u) &\approx B^{-1}(u^{(c)} + \Delta u - u^{(b)}) 
+\end{aligned}
+```
+which we now solve for the update ``\Delta u`` to obtain the linear system 
+```math
+\left(B^{-1} + D_h^T(u^{(c)})R^{-1}D_h(u^{(c)}) \right)\Delta u = B^{-1}(u^{(b)}-u^{(c)}) + D_h^T(u^{(c)})R^{-1}(w-h(u^{(c)}))
+```
+
+Thus we have the following prescription 
+1. To begin, take ``u^{(c)} == u^{(b)}``. 
+2. Solve the system 
+```math
+\left(B^{-1} + D_h^T(u^{(c)})R^{-1}D_h(u^{(c)}) \right)\Delta u = B^{-1}(u^{(b)}-u^{(c)}) + D_h^T(u^{(c)})R^{-1}(w-h(u^{(c)}))
+```
+to obtain ``\Delta u``
+
+3. Update your guess using your favorite optimization algorithm. For example, in steppest descent, choose a learning rate $\eta$ and set 
+```math
+u_{\text{new}}^{(c)}  = u_{\text{prev}}^{(c)} + \eta\Delta u
+```
+4. Repeat the procedure until ``\lvert u_{\text{new}}^{(c)} - u_{\text{prev}}^{(c)} \rvert`` converges to a desired tolerance.
