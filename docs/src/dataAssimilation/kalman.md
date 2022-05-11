@@ -6,7 +6,6 @@ The original implementation of the Kalman filter was for strictly linear systems
 In the linear case, our system may be written as 
 
 ```math
-=======
 \begin{aligned}
     u_{k+1}^{(t)} &= M_ku_k^{(t)} + \xi_{k+1}^{(p)} \\ 
     w_k &= H_ku_k^{(t)} + \xi_k^{(m)}
