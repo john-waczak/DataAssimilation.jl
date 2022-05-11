@@ -21,8 +21,8 @@ It is easy to obtain the gradient of ``J_0`` so we shall focus on the second ter
 ```math
 \begin{aligned}
     \nabla_{u_0}J_m &= \nabla_{u_0}\Big\{ \sum_k \frac{1}{2}  \left(w_k - h(u_k) \right)^TR_k^{-1}\left(w_k - h(u_k) \right) \Big\}\\
-                    &= - \sum_k \left[\dfrac{\partial }{\partial u_0}h\left(\mathcal{M}^{(k-1)}(u_0)\right) \right]^T\left(w_k - h(u_k) \right)^TR_k^{-1}\left(w_k - h(u_k) \right)\\
-                    &= - \sum_k \left[D_h(u_k)D_M(u_{k-1})D_M(u_{k-2})\cdots D_M(u_0) \right]^T\left(w_k - h(u_k) \right)^TR_k^{-1}\left(w_k - h(u_k) \right)\\
-                    &= - \sum_k \left[D_M^T(u_0)D_M^T(u_1)\cdots D_M^T(u_{k-1})D_h^T(u_k) \right] \left(w_k - h(u_k) \right)^TR_k^{-1}\left(w_k - h(u_k) \right)\\
+                    &= - \sum_k \left[\dfrac{\partial }{\partial u_0}h\left(\mathcal{M}^{(k-1)}(u_0)\right) \right]^T R_k^{-1}\left(w_k - h(u_k) \right)\\
+                    &= - \sum_k \left[D_h(u_k)D_M(u_{k-1})D_M(u_{k-2})\cdots D_M(u_0) \right]^T R_k^{-1}\left(w_k - h(u_k) \right)\\
+                    &= - \sum_k \left[D_M^T(u_0)D_M^T(u_1)\cdots D_M^T(u_{k-1})D_h^T(u_k) \right] R_k^{-1}\left(w_k - h(u_k) \right)\\
 \end{aligned}
 ```
