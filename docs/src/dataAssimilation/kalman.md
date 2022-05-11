@@ -137,13 +137,13 @@ we now substitute this result to obtain a simplified form for ``P_k``.
 
 ```math
 \begin{aligned}
-    P_k &= \left(I - K_kH_k \rigth)B_k\left(I - K_kH_k \rigth)^T + K_kR_kK_k^T \\ 
-        &= \left(I - K_kH_k \rigth)B_k - \left(I - K_kH_k \rigth)B_k\left(K_kH_k \rigth)^T + K_kR_kK_k^T \\
-        &= \left(I - K_kH_k \rigth)B_k -\left\{ \left(I - K_kH_k \rigth)B_k\left(K_kH_k \rigth)^T + K_kR_kK_k^T \right\} \\
-        &= \left(I - K_kH_k \rigth)B_k -\left\{ \left(I - K_kH_k \rigth)B_kH_k^TK_k^T + K_kR_kK_k^T \right\} \\
-        &= \left(I - K_kH_k \rigth)B_k -\left\{ \left(I - K_kH_k \rigth)B_kH_k^T + K_kR_k \right\}K_k^T \\
-        &= \left(I - K_kH_k \rigth)B_k -\left\{ B_kH_k^T - K_k\left( H_kB_kH_k^T + R_k \right)  \right\}K_k^T \\
-        &= \left(I - K_kH_k \rigth)B_k -\left\{ B_kH_k^T - B_kH_k^T \right\}K_k^T \\
+    P_k &= \left(I - K_kH_k \right)B_k\left(I - K_kH_k \right)^T + K_kR_kK_k^T \\ 
+        &= \left(I - K_kH_k \right)B_k - \left(I - K_kH_k \right)B_k\left(K_kH_k \right)^T + K_kR_kK_k^T \\
+        &= \left(I - K_kH_k \right)B_k -\left\{ \left(I - K_kH_k \right)B_k\left(K_kH_k \right)^T + K_kR_kK_k^T \right\} \\
+        &= \left(I - K_kH_k \right)B_k -\left\{ \left(I - K_kH_k \right)B_kH_k^TK_k^T + K_kR_kK_k^T \right\} \\
+        &= \left(I - K_kH_k \right)B_k -\left\{ \left(I - K_kH_k \right)B_kH_k^T + K_kR_k \right\}K_k^T \\
+        &= \left(I - K_kH_k \right)B_k -\left\{ B_kH_k^T - K_k\left( H_kB_kH_k^T + R_k \right)  \right\}K_k^T \\
+        &= \left(I - K_kH_k \right)B_k -\left\{ B_kH_k^T - B_kH_k^T \right\}K_k^T \\
         &= \left(I - K_kH_k \right)B_k 
 \end{aligned}
 ```
