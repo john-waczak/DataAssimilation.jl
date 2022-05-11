@@ -6,6 +6,7 @@ The original implementation of the Kalman filter was for strictly linear systems
 In the linear case, our system may be written as 
 
 ```math
+=======
 \begin{aligned}
     u_{k+1}^{(t)} &= M_ku_k^{(t)} + \xi_{k+1}^{(p)} \\ 
     w_k &= H_ku_k^{(t)} + \xi_k^{(m)}
@@ -19,7 +20,6 @@ The goal of the Kalman filter is to derive the analysis ``u^{(a)}`` which optimi
 ```math
 \mathrm{Tr}\left( P_k\right) := \E[(u_k^{(t)}-u_k^{(a)})^T(u_k^{(t)}-u_k^{(a)})]
 ```
-
 Finding the analysis consists of two steps: the forecast step and the assimilation step.
 
 ## Forecast Step
