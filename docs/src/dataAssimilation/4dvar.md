@@ -26,3 +26,13 @@ It is easy to obtain the gradient of ``J_0`` so we shall focus on the second ter
                     &= - \sum_k \left[D_M^T(u_0)D_M^T(u_1)\cdots D_M^T(u_{k-1})D_h^T(u_k) \right] R_k^{-1}\left(w_k - h(u_k) \right)\\
 \end{aligned}
 ```
+
+Given that we can now obtain the gradient of the cost function, the procedure is nearly identical to 3d-var: 
+
+1. Integrate your model forward to obtain ``\{u_k\}``
+2. Evaluate each of the ``D_M^T(u_{k-1:0})`` and ``D_h(u_k)``. 
+3. Using these values, compute ``\nabla J_m(u)``
+4. Set ``u_0^{(new)} = u_0^{(prev)} - \eta \nabla J(u_0^{(prev)})``
+5. Stop when ``\lvert u_0^{(new)} - u_0^{(prev)} \rvert`` converges to your desired tolerance. 
+
+You can of course substitute another optimzation scheme after step 3. 
