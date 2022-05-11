@@ -114,8 +114,18 @@ and therefore the covariance matrix is
 \end{aligned}
 ```
 
-$$
-\begin{equation}
-    \int_0^1 f(x)dx
-\end{equation}
-$$ 
+The Kalman filter is defined at that ``K_k`` which which minimizes the sum of squared analysis errors, i.e. the trace of the analysis error covariance matrix. The following identies will be useful: 
+```math
+\begin{aligned}
+    \mathop{\nabla}_{A}\text{tr}(AB) &= B^T \\ 
+    \mathop{\nabla}_{A}\text{tr}(BA) &= B \\ 
+    \mathop{\nabla}_{A}\text{tr}(ABA) &= AB^T + AB  \\ 
+\end{aligned}
+```
+from which we obtain 
+```math
+\begin{aligned}
+    0 &= \mathop{\nabla}_{K_k}\text{tr}(P_k) \\ 
+      &= 
+\end{aligned}
+```
