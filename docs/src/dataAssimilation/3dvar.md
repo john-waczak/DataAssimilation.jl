@@ -68,3 +68,6 @@ to obtain ``\Delta u``
 u_{\text{new}}^{(c)}  = u_{\text{prev}}^{(c)} + \eta\Delta u
 ```
 4. Repeat the procedure until ``\lvert u_{\text{new}}^{(c)} - u_{\text{prev}}^{(c)} \rvert`` converges to a desired tolerance.
+
+
+In both the linear and nonlinear case, it should be noted that we have not added time indices to our state vectors. This is an indication that the 3d-var procedure is performed **at every time where you have observation data**.
