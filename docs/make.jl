@@ -30,6 +30,8 @@ makedocs(;
             "Data Assimilation Oveview" => "dataAssimilation/dataassim.md",
             "Kalman Filter" => "dataAssimilation/kalman.md",
             "Extended Kalman Filter" => "dataAssimilation/ekf.md",
+            "3d var" => "dataAssimilation/3dvar.md",
+            "4d var" => "dataAssimilation/4dvar.md",
         ],
         "Function docs" => "fdocs.md",
     ],
