@@ -27,6 +27,6 @@ Suppose that we have ``h(u) = Hu`` so that ``D_h(u) = H``. Then, we have
     D_h^TR^{-1}(w-Hu^{(a)}) &= B^{-1}(u^{(a)}-u^{(b)}) \\ 
     D_h^TR^{-1}w - D_h^TR^{-1}Hu^{(a)} &= B^{-1}u^{(a)} - B^{-1}u^{(b)} \\ 
     \left(D_h^TR^{-1}H + B^{-1} \right)u^{(a)} &= D_h^TR^{-1} + B^{-1}u^{(b)} \\
-    \Aboxed{\left(H^TR^{-1}H + B^{-1} \right)u^{(a)} &= H^TR^{-1} + B^{-1}u^{(b)}}
+    \left(H^TR^{-1}H + B^{-1} \right)u^{(a)} &= H^TR^{-1} + B^{-1}u^{(b)}
 \end{aligned}
 ```
