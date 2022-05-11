@@ -147,7 +147,7 @@ we now substitute this result to obtain a simplified form for ``P_k``.
         &= \left(I - K_kH_k \right)B_k 
 \end{aligned}
 ```
-
+**NOTE**: we have used the fact that covariance matrices are symmetric. 
 
 ## Summary 
 Let's summarize the whole process. We have 

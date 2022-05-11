@@ -1,4 +1,31 @@
 # Extended Kalman Filter
+Given the nonlinear nature of many scientific models it is desirable to extend the **Kalman Filter** to be able to handle nonlinear models ``f(\cdot)`` (and by extension, their update function ``\mathcal{M}(\cdot)``), and nonlinear observation functions ``h(\cdot)``. This can be accomplished so long as these functions are sufficiently smooth (`C^1` to be precises) so as to admit valid Taylor approximations to first order. That is, 
+```math
+\begin{aligned}
+    \mathcal{M}(u_{k}) &\approx \mathcal{M}(u_k^{(a)}) + D_{M}(u_k^{(a)})\xi_k^{(a)} & h(u_k) &\approx h(u_k^{(b)}) + D_h(u_k^{(b)})\xi_k^{(b)} \\ 
+    D_{M} &:= \left[\dfrac{\partial \mathcal{M}_i}{\partial u_j} \right] & D_h &:= \left[ \dfrac{\partial h_i}{\partial u_j}\right]
+\end{aligned}
+```
+where ``\mathcal{M}_i`` and ``h_i``  denote the ith component functions of ``\mathcal{M}`` and ``h``. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 For the **Extended Kalman Filter** we seek to find the ``x_k^a`` that minimizes ``\xi_k^{(a)} = u_k^{(t)} - x_k^{(t)}`` in the least-squares sense. 
 
 ## Initialization
