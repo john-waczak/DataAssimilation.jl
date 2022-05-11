@@ -114,7 +114,7 @@ and therefore the covariance matrix is
 \end{aligned}
 ```
 
-$$ Deriving ``K_k`` 
+##  Deriving ``K_k`` 
 The Kalman filter is defined at that ``K_k`` which which minimizes the sum of squared analysis errors, i.e. the trace of the analysis error covariance matrix. The following identies will be useful: 
 ```math
 \begin{aligned}
@@ -131,5 +131,43 @@ from which we obtain
       &= -B_kH_k^T - (H_kB_k)^T + K_k\left[H_kB_kH_k^T + (H_kB_kH_k^T)^T - R_k+R_k^T\right] \\
       &= -2B_kH_k^T + 2K_k\left(H_kB_kH_k^2 - R_k \right) \\ 
   \Rightarrow K_k &= B_kH_k^T\Big[ H_kB_kH_k^T - R_k \Big]^{-1}
+\end{aligned}
+```
+we now substitute this result to obtain a simplified form for ``P_k``. 
+
+```math
+\begin{aligned}
+    P_k &= \left(I - K_kH_k \rigth)B_k\left(I - K_kH_k \rigth)^T + K_kR_kK_k^T \\ 
+        &= \left(I - K_kH_k \rigth)B_k - \left(I - K_kH_k \rigth)B_k\left(K_kH_k \rigth)^T + K_kR_kK_k^T \\
+        &= \left(I - K_kH_k \rigth)B_k -\left\{ \left(I - K_kH_k \rigth)B_k\left(K_kH_k \rigth)^T + K_kR_kK_k^T \right\} \\
+        &= \left(I - K_kH_k \rigth)B_k -\left\{ \left(I - K_kH_k \rigth)B_kH_k^TK_k^T + K_kR_kK_k^T \right\} \\
+        &= \left(I - K_kH_k \rigth)B_k -\left\{ \left(I - K_kH_k \rigth)B_kH_k^T + K_kR_k \right\}K_k^T \\
+        &= \left(I - K_kH_k \rigth)B_k -\left\{ B_kH_k^T - K_k\left( H_kB_kH_k^T + R_k \right)  \right\}K_k^T \\
+        &= \left(I - K_kH_k \rigth)B_k -\left\{ B_kH_k^T - B_kH_k^T \right\}K_k^T \\
+        &= \left(I - K_kH_k \right)B_k 
+\end{aligned}
+```
+
+
+## Summary 
+Let's summarize the whole process. We have 
+
+### 0. Initialization 
+We must set the system to some initial condition. This means we must define ``u_0^a`` and ``P_0``. We must also come up with a model for the process noise covariance ``Q_k`` and measurement error covariance ``R_k``.
+
+### 1. Forecast Step 
+```math
+\begin{aligned}
+    u_k^{(b)} &= M_{k-1}u_{k-1}^{(a)} \\ 
+    B_k &= M_{k-1}P_{k-1}M_{k-1}^T + Q_{k}
+\end{aligned}
+```
+
+### 2. Assimilation Step 
+```math
+\begin{aligned}
+    K_k &= B_kH_k^T\Big[ H_kB_kH_k^T - R_k \Big]^{-1}  \\ 
+    u_k^{(a)} &= u_k^{(b)} + K_k(w_k - H_ku_k^{(b)})\\ 
+    P_k &= \left(I - K_kH_k \right)B_k 
 \end{aligned}
 ```
