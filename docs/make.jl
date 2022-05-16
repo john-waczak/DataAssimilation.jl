@@ -32,6 +32,7 @@ makedocs(;
             "Extended Kalman Filter" => "dataAssimilation/ekf.md",
             "3d var" => "dataAssimilation/3dvar.md",
             "4d var" => "dataAssimilation/4dvar.md",
+            "Sensativity Analysis" => "dataAssimilation/sensativity.md",
         ],
         "Function docs" => "fdocs.md",
     ],
