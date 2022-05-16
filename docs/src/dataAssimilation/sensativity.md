@@ -14,7 +14,6 @@ where ``g(u;\theta)`` is usually taken to be some *quadratic form*.
 
 As an example, we might consider ``g(u\; \theta) = (u(t)-w(t))^T(u(t)-w(t))`` where ``w(t)`` denotes the vector of observations at time ``t``. 
 
-
 Our goal then is to find out how ``J`` depends on the parameters ``\theta``, in other words, to find ``\partial J / \partial \theta``. To do this, we will use the method of Lagrange multipliers to generate a so called *adjoint equation* that enables us to find this derivative in a way that minimizes computational cost. As always, this method begins by adding a term that evaluates to 0 into our cost function: 
 ```math
     \mathcal{L} := \int_0^T \left[ g(u;\theta) + \lambda^T(t)\left(f-\dfrac{du}{dt}\right) \right] dt
@@ -22,7 +21,7 @@ Our goal then is to find out how ``J`` depends on the parameters ``\theta``, in 
 From this, we find 
 ```math
 \begin{aligned}
-    \dfrac{\partial \mathcal{L}}{\partial \theta} &:= \int_0^T\left[ \frac{\partial g}{\partial \theta} + \frac{\partial g}{u}\frac{\partial u}{\partial \theta} + \lambda^T(t)\left( \frac{\partial f}{\partial \theta} + \frac{\partail f}{\partial u}\frac{\partail u}{\partial \theta} - \frac{d}{dt}\frac{\partail u}{\partial \theta} \right)\right]dt \\ 
+    \dfrac{\partial \mathcal{L}}{\partial \theta} &:= \int_0^T\left[ \frac{\partial g}{\partial \theta} + \frac{\partial g}{u}\frac{\partial u}{\partial \theta} + \lambda^T(t)\left( \frac{\partial f}{\partial \theta} + \frac{\partial f}{\partial u}\frac{\partial u}{\partial \theta} - \frac{d}{dt}\frac{\partial u}{\partial \theta} \right)\right]dt \\ 
     &= \int_0^T \left[ \frac{\partial g}{\partial \theta} + \lambda^T(t)\frac{\partial f}{\partial \theta} + \left( \frac{\partial g}{\partial u} + \lambda^T(t)\frac{\partial f}{\partial u} - \lambda^T(t)\frac{d}{dt} \right)\frac{\partial u}{\partial \theta} \right]dt
 \end{aligned}
 ```
@@ -30,14 +29,16 @@ This reorganization is nice because the term ``\partial u/\partial \theta`` is t
 
 ```math
 \begin{aligned}
-    \int_0^T-\lambda^T(t)\frac{d}{dt}\frac{\partial u}{\partial \theta} dt &= \left[-\lambda^T(t)\frac{\partial u}{\partial \theta} \right]_0^T_+ \int_0^T \frac{d\lambda^T(t)}{dt}\frac{\partial u}{\partial \theta}dt \\ 
+    \int_0^T -\lambda^T(t)\frac{d}{dt}\frac{\partial u}{\partial \theta} dt &= \left[-\lambda^T(t)\frac{\partial u}{\partial \theta} \right]_0^T_+ \int_0^T \frac{d\lambda^T(t)}{dt}\frac{\partial u}{\partial \theta}dt \\ 
     &= \lambda^T(0)\frac{\partial u_0}{\partial \theta} - \lambda^T(T)\frac{\partial u(T)}{\partial \theta} + \int_0^T \left[ \frac{d\lambda}{dt} \right]^T\frac{\partial u}{\partial \theta}dt
 \end{aligned}
 ```
+
 so that plugging this back into our expression for ``\partial \mathcal{L}//\partial \theta``, we obtain
 ```math
 \frac{\partial \mathcal{L}}{\partial \theta} = \int_0^T \left[ \frac{\partial g}{\partial \theta} + \lambda^T\frac{\partial f}{\partial \theta} + \left( \frac{\partial g}{\partial u} + \lambda^T\frac{\partial f}{\partial u} + \left[\frac{d\lambda}{dt}\right]^T \right)\frac{\partial u}{\partial \theta}\right]dt + \lambda^T(0)\frac{\partial u_0}{\partial \theta} - \lambda^T(T)\frac{\partial u(T)}{\partial \theta}
 ```
+
 Thus, forcing the nasty terms to dissappear is equivalent find the ``\lambda(t)`` subject to the differential equations 
 ```math
 \begin{aligned}
