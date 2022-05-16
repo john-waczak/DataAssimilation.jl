@@ -42,7 +42,7 @@ so that plugging this back into our expression for ``\partial \mathcal{L}//\part
 Thus, forcing the nasty terms to dissappear is equivalent find the ``\lambda(t)`` subject to the differential equations 
 ```math
 \begin{aligned}
-   \frac{\partial g}{\partial u} + \lambda^T(t)\frac{\patial f}{\partial u} + \frac{d\lambda^T(t)}{dt} &= 0 \\ 
+   \frac{\partial g}{\partial u} + \lambda^T(t)\frac{\partial f}{\partial u} + \frac{d\lambda^T(t)}{dt} &= 0 \\ 
    \lambda^T(T) &= 0
 \end{aligned}
 ```
@@ -57,5 +57,5 @@ or by taking the transpose:
 ## Summary
 To find the sensativities ``\partial J/\partial \theta``, we perform the following: 
 1. Integrate the model ``du/dt = f(u,t,\theta)`` forward to obtain ``u(t)``.
-2. Integrate the adjoint model ``d\lambda/dt = -(\partial f/ \patial u)^T\lambda - (\partial g / partial u)^T `` backwards in time from ``T`` to ``0`` to obtain ``\lambda(t)``.
+2. Integrate the adjoint model ``d\lambda/dt = -(\partial f/ \partial u)^T\lambda - (\partial g / partial u)^T `` backwards in time from ``T`` to ``0`` to obtain ``\lambda(t)``.
 3. Evaluate ``\partial J / \partial \theta = \int_0^T\left( \partial g/ partial \theta + \lambda^T \partial f/\partial \theta\right)dt + \lambda^T(0)\partial u_0/\partial \theta  ``
