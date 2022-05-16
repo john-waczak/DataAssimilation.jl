@@ -49,7 +49,7 @@ Thus, forcing the nasty terms to dissappear is equivalent find the ``\lambda(t)`
 or by taking the transpose: 
 ```math
 \begin{aligned}
-    \frac{d}{dt}\lambda &= - \left[ \frac{\partial g}{\patial u} \right]^T - \left[ \frac{\partial f}{\partial u} \right]^T\lambda  \\ 
+    \frac{d}{dt}\lambda &= - \left[ \frac{\partial g}{\partial u} \right]^T - \left[ \frac{\partial f}{\partial u} \right]^T\lambda  \\ 
     \lambda(T) &= 0
 \end{aligned}
 ```
