@@ -28,11 +28,12 @@ Naturally, the larger the ensemble, the better the approximation to the true sta
 u_i^{(b)}(t_{k+1}) = \mathcal{M}(u_i^{(a)}(t_k); \theta) + \xi_p^{(i)}(t_{k+1})
 ```
 3. Comptue the forecast covariance matrix 
+
 ```math
 \begin{aligned}
     \bar{u}^{(b)}(t_{k+1}) &= \frac{1}{N}\sum_i^N u_i^{(b)}(t_{k+1}) \\ 
     \xi_i^{(b)}(t_{k+1}) &= u_i^{(b)}(t_{k+1}) - \bar{u}^{(b)}(t_{k+1}) \\ 
-    B_{k+1} &= \frac{1}{N-1}\sum_i^N \xi_i^{(b)}(t_{k+1})\left(\xi_i^{(b)}(t_{k+1})\right^T
+    B_{k+1} &= \frac{1}{N-1}\sum_i^N \xi_i^{(b)}(t_{k+1})\left(\xi_i^{(b)}(t_{k+1})\right)^T
 \end{aligned}
 ```
 4. Given an observation ``w(t_{k+1})``, generate an ensemble of *virtual observations* by sampling a Gaussian distribution with error covariance matrix ``R_{k+1}`` to obtain ``w_i(t_{k+1})``
@@ -46,9 +47,11 @@ u_i^{(a)} = u_i^{(b)} + K_{k+1}\left(w_i(t_{k+1}) - h(u_i^{(b)}(t_{k+1})) \right
 ```
 7. Compute ensemble error covariance matrix for the analysis 
 ```math
+\begin{aligned}
     u^{(a)}(t_{k+1}) &\approx \bar{u}^{(a)}(t_{k+1}) = \frac{1}{N}\sum_i^N u_i^{(a)}(t_{k+1}) \\ 
     \xi_i^{(a)} &= u_i^{(a)}(t_{k+1}) - \bar{u}^{(a)}(t_{k+1}) \\ 
     P_{k+1} &= \frac{1}{N-1}\sum_i^N \xi_i^{(a)}(t_{k+1})\left(\xi_i^{(a)}(t_{k+1}) \right)^T
+\end{aligned}
 ```
 
 We note that since each ensemble member may be propagated forward independently, it is easy to parallelize this algorithm to acheive good performance. 
