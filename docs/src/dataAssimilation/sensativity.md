@@ -58,4 +58,4 @@ or by taking the transpose:
 To find the sensativities ``\partial J/\partial \theta``, we perform the following: 
 1. Integrate the model ``du/dt = f(u,t,\theta)`` forward to obtain ``u(t)``.
 2. Integrate the adjoint model ``d\lambda/dt = -(\partial f/ \partial u)^T\lambda - (\partial g / partial u)^T `` backwards in time from ``T`` to ``0`` to obtain ``\lambda(t)``.
-3. Evaluate ``\partial J / \partial \theta = \int_0^T\left( \partial g/ partial \theta + \lambda^T \partial f/\partial \theta\right)dt + \lambda^T(0)\partial u_0/\partial \theta  ``
+3. Evaluate ``\partial J / \partial \theta = \int_0^T\left( \partial g/ \partial \theta + \lambda^T \partial f/\partial \theta\right)dt + \lambda^T(0)\partial u_0/\partial \theta  ``
