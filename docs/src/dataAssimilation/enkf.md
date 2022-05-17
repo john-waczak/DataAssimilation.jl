@@ -50,3 +50,5 @@ u_i^{(a)} = u_i^{(b)} + K_{k+1}\left(w_i(t_{k+1}) - h(u_i^{(b)}(t_{k+1})) \right
     \xi_i^{(a)} &= u_i^{(a)}(t_{k+1}) - \bar{u}^{(a)}(t_{k+1}) \\ 
     P_{k+1} &= \frac{1}{N-1}\sum_i^N \xi_i^{(a)}(t_{k+1})\left(\xi_i^{(a)}(t_{k+1}) \right)^T
 ```
+
+We note that since each ensemble member may be propagated forward independently, it is easy to parallelize this algorithm to acheive good performance. 
