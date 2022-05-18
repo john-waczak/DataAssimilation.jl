@@ -47,22 +47,21 @@ end
 # # test that it works
 J_forwarddiff = ForwardDiff.jacobian(model_forward, u0)
 
-# u_test = [1.0, 2.0, 2.0]
-# J = ForwardDiff.jacobian(model_forward, u_test)
+u_test = [1.0, 2.0, 2.0]
 
-# res = DiffResults.JacobianResult(u_test)
-# ForwardDiff.jacobian!(res, model_forward, u_test)
-
-# DiffResults.value(res)
-# DiffResults.jacobian(res)
-# J
+res = DiffResults.JacobianResult(u_test)
+ForwardDiff.jacobian!(res, model_forward, u_test)
+DiffResults.value(res)
+DiffResults.jacobian(res)
 
 
 
 # ----- Now try with zygote and compare
 J_reversediff = Zygote.jacobian(model_forward, u0)[1]
 
-
+res = Zygote.withjacobian(model_forward, u_test)
+res.val
+res.grad[1]
 
 
 # ---- Let's verify with ForwardDiff
