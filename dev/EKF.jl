@@ -103,6 +103,13 @@ u0b = [2.0; 3.0; 4.0]  # guess at initial condition
 B = σ_b^2 .* I(3)  # initial model error covariance
 Q = 0.0 * I(3)  # process noise (assumed zero)
 
+
+# integrate to obtain the true solution
+prob_no_analysis = ODEProblem(lorenz!, u0b, ts_sim, θ, saveat=dt)
+sol_no_analysis = solve(prob_no_analysis)
+
+
+
 # set up arrays for solution outputs... we should probably pre-allocate these
 ua = zeros(3, size(0:dt:tend, 1))
 ua[:,1] = u0b
@@ -167,6 +174,7 @@ for k ∈ 1:(length(times)-1)
         DH = Dh(ua[:,idx_next])
         println("\t Dₕ=$(DH)")
         denom = DH*B*DH' + R
+        println("\t B:= $(B)")
         println("\t denom:= $(denom)")
         K = B*DH'*inv(denom)
 
@@ -182,4 +190,18 @@ for k ∈ 1:(length(times)-1)
 end
 
 
-plot(0:dt:tend, ua[1,:])
+var_names = ["x(t)", "y(t)", "z(t)"]
+plots = []
+for i ∈ 1:3
+    p = plot(sol_true, vars=(0,i), color=:black, alpha=0.75, linewidth=2, label="true system")
+    plot!(p, ts_m, w[i, :], seriestype=:scatter, color="light green", label="observation" )
+    plot!(p, sol_no_analysis, vars=(0, i), linestyle=:dashdot, color="purple", label="forecast")
+    plot!(p, 0:dt:tend, ua[i, :], color="royal blue", alpha=1, linewidth = 1, label="analysis")
+    xlabel!(p, "t")
+    ylabel!(p, var_names[i])
+    push!(plots, p)
+end
+
+plot(plots..., layout=(3,1))
+
+savefig("EKF_using_zygote.svg")
