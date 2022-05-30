@@ -37,18 +37,18 @@ sol_true = solve(prob_true)
 
 
 # visualize the data
-px = plot(sol_true, vars=(0,1), color=:black, alpha=0.75, linewidth=2, label="true system")
-xlabel!("t")
-ylabel!("x(t)")
-py = plot(sol_true, vars=(0,2), color=:black, alpha=0.75, linewidth=2, label="true system")
-xlabel!("t")
-ylabel!("y(t)")
+# px = plot(sol_true, vars=(0,1), color=:black, alpha=0.75, linewidth=2, label="true system")
+# xlabel!("t")
+# ylabel!("x(t)")
+# py = plot(sol_true, vars=(0,2), color=:black, alpha=0.75, linewidth=2, label="true system")
+# xlabel!("t")
+# ylabel!("y(t)")
 
-pz = plot(sol_true, vars=(0,3), color=:black, alpha=0.75, linewidth=2, label="true system")
-xlabel!("t")
-ylabel!("z(t)")
+# pz = plot(sol_true, vars=(0,3), color=:black, alpha=0.75, linewidth=2, label="true system")
+# xlabel!("t")
+# ylabel!("z(t)")
 
-train_plot = plot(px, py, pz, layout=(3,1))
+# train_plot = plot(px, py, pz, layout=(3,1))
 
 
 
@@ -86,11 +86,11 @@ w = hcat([h(sol_true(tᵢ))+rand(MvNormal(zeros(3), R)) for tᵢ ∈ ts_m]...)
 
 
 # update the graphs with observation stuff
-plot!(px, ts_m, w[1, :], seriestype=:scatter, color="light green", label="observation" )
-plot!(py, ts_m, w[2, :], seriestype=:scatter, color="light green", label="observation" )
-plot!(pz, ts_m, w[3, :], seriestype=:scatter, color="light green", label="observation" )
+# plot!(px, ts_m, w[1, :], seriestype=:scatter, color="light green", label="observation" )
+# plot!(py, ts_m, w[2, :], seriestype=:scatter, color="light green", label="observation" )
+# plot!(pz, ts_m, w[3, :], seriestype=:scatter, color="light green", label="observation" )
 
-train_plot = plot(px, py, pz, layout=(3,1))
+# train_plot = plot(px, py, pz, layout=(3,1))
 
 
 
@@ -148,7 +148,14 @@ times = 0:dt_m:tend
 
 t_now = times[1]
 t_next = times[2]
-model_forward!(u0b)
+#model_forward!(u0b)
+
+res = Zygote.withjacobian(model_forward!, u0b)
+res.val
+res.grad[1]
+
+
+
 
 for k ∈ 1:(length(times)-1)
     t_now = times[k]
@@ -158,7 +165,8 @@ for k ∈ 1:(length(times)-1)
     idx_now = timeindex(t_now, dt)
     u_now = ua[:, idx_now]
 
-    u_next, DM = model_forward!(u_now)
+    # u_next, DM = model_forward!(u_now)
+    u_next, DM = Zygote.withjacobian(model_forward!, u_now)
     DM = DM[1]
 
     # update error covariance matrix
@@ -202,6 +210,8 @@ for i ∈ 1:3
     push!(plots, p)
 end
 
-plot(plots..., layout=(3,1))
+final_plot = plot(plots..., layout=(3,1))
 
 savefig("EKF_using_zygote.svg")
+savefig("EKF_using_zygote.png")
+display(final_plot)
