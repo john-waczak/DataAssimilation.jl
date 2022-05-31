@@ -9,7 +9,7 @@ using Statistics
 using Distributions
 
 
-include("AssimilationProblem.jl")
+include("./AssimilationProblem.jl")
 
 
 # define function to get time index given a Δt
@@ -29,14 +29,15 @@ Zygote.@nograd update!  # tell zygote to ignore update! when computing derivativ
 
 
 
-function model_forward!(uₖ, uₐ, t_now, t_next, θ)
-    prob = ODEProblem(lorenz!, uₖ, (t_now, t_next), θ)
-    sol = solve(prob, Tsit5(), reltol=1e-6,abstol=1e-6)
+function model_forward!(uₖ, uₐ, t_now, t_next, prob)
+    ode_prob = ODEProblem(lorenz!, uₖ, (t_now, t_next), prob.p)
+    sol = solve(ode_prob, Tsit5(), reltol=1e-6,abstol=1e-6)
 
-    update!(sol, t_now, t_next, dt, uₐ)
+    update!(sol, t_now, t_next, prob.Δt, uₐ)
 
     return sol[:, end]
 end
+
 
 
 function EKFsolve(prob::AssimilationProblem)
@@ -66,9 +67,7 @@ function EKFsolve(prob::AssimilationProblem)
         idx_now = timeindex(t_now, prob.Δt)
         u_now = uₐ[:, idx_now]
 
-
-        # u_next, DM = model_forward!(u_now)
-        u_next, DM = Zygote.withjacobian(model_forward!, u_now, uₐ, t_now, t_next, prob.p)
+        u_next, DM = Zygote.withjacobian(model_forward!, u_now, uₐ, t_now, t_next, prob)
         DM = DM[1]
 
         # update error covariance matrix
