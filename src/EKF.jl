@@ -50,31 +50,54 @@ function EKFsolve(prob::AssimilationProblem)
     uₐ[:,1] = prob.u₀
     B[:,:,1] = prob.B₀
 
-    # define new version of function with uₐ pre-supplied
-    # mdl_forward!(uₖ) = model_forward!(uₖ, uₐ)
-    # mdl_forward!(uₖ) = model_forward!(uₖ, uₐ, t_now, t_next, θ)
 
-
+    # 3. define time ranges
     times = prob.tspan[1]:prob.Δt:prob.tspan[2]
 
     n_obs = size(prob.w, 2)
-    times_obs = Δt_obs:Δt_obs:(Δt_obs * n_obs)
+    times_obs = Δt_obs:Δt_obs:(Δt_obs * (n_obs-1))
 
     for k ∈ 1:(length(times)-1)
+
+        # 4. Perform the forecast to obtain the background
+
         t_now = times[k]
         t_next = times[k+1]
 
         idx_now = timeindex(t_now, prob.Δt)
+        idx_next = timeindex(t_next, prob.Δt)
+
         u_now = uₐ[:, idx_now]
 
         u_next, DM = Zygote.withjacobian(model_forward!, u_now, uₐ, t_now, t_next, prob)
         DM = DM[1]
 
         # update error covariance matrix
-        B[:,:,k+1] = DM * B[:,:,k] * DM' + prob.Q
+        B[:,:,idx_next] = DM * B[:,:,idx_now] * DM' + prob.Q
+
+
+        # 5. Perform the assimilation step
+        if t_next ∈ times_obs
+            n = size(uₐ, 1)
+            idx_h = timeindex(t_next, prob.Δt_obs) - 1 # -1 since this doesn't include 0
+
+            # compute the Kalman gain matrix
+            DH = prob.Dh(uₐ[:,idx_next])
+
+            denom = DH*B[:,:, idx_next]*DH' + prob.R
+
+            K = B[:,:, idx_next]*DH'*inv(denom)
+
+            uₐ[:,idx_next] .= uₐ[:, idx_next] + K*(prob.w[:, idx_h] - prob.h(uₐ[:, idx_next]))
+
+            B[:,:,idx_next] = (I(n) - K*DH)*B[:,:,idx_next]
+        end
+
 
     end
 
+
+    # 6. Return the resulting analysis uₐ, and error covariance matrix B
     return uₐ, B
 end
 
